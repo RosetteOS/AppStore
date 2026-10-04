@@ -412,16 +412,23 @@ static const char* EMBEDDED_WEB_HTML = R"rawhtml(<!DOCTYPE html>
                             }
                         }
 
-                        // Schedule next incremental update
-                        setTimeout(() => {
+                        // Request next frame update immediately
+                        requestAnimationFrame(() => {
                             if (handshaked && ws && ws.readyState === WebSocket.OPEN) {
                                 sendFbUpdateRequest(1, 0, 0, fbWidth, fbHeight);
                             }
-                        }, 25);
+                        });
                     }
                 }
             };
         }
+
+        // Periodic keepalive to ensure continuous responsiveness
+        setInterval(() => {
+            if (handshaked && ws && ws.readyState === WebSocket.OPEN) {
+                sendFbUpdateRequest(1, 0, 0, fbWidth, fbHeight);
+            }
+        }, 100);
 
         function sendFbUpdateRequest(incremental, x, y, w, h) {
             if (!ws || ws.readyState !== WebSocket.OPEN) return;

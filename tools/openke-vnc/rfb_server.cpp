@@ -359,6 +359,9 @@ bool RfbServer::handle_client_messages(std::shared_ptr<RfbClient>& client) {
                 const auto* msg = reinterpret_cast<const RfbFramebufferUpdateRequest*>(buf.data());
                 client->has_pending_update = true;
                 client->req_incremental = (msg->incremental != 0);
+                if (!client->req_incremental) {
+                    client->needs_full_refresh = true;
+                }
                 buf.erase(buf.begin(), buf.begin() + sizeof(RfbFramebufferUpdateRequest));
                 break;
             }
@@ -446,18 +449,28 @@ void RfbServer::broadcast_updates(const std::vector<Rect>& dirty_rects) {
         clients_copy = m_clients;
     }
 
+    // Accumulate newly detected dirty rectangles for all active clients
+    if (!dirty_rects.empty()) {
+        for (auto& client : clients_copy) {
+            client->pending_rects.insert(client->pending_rects.end(), dirty_rects.begin(), dirty_rects.end());
+        }
+    }
+
     for (auto& client : clients_copy) {
         if (!client->initialized || !client->has_pending_update) continue;
 
-        if (!client->req_incremental) {
+        if (client->needs_full_refresh || !client->req_incremental) {
             // Full screen update requested (e.g. initial connection or full refresh)
             Rect full_rect = { 0, 0, m_fb.get_width(), m_fb.get_height() };
             std::vector<Rect> full_vec = { full_rect };
             send_framebuffer_update(client, full_vec);
+            client->pending_rects.clear();
+            client->needs_full_refresh = false;
             client->has_pending_update = false;
             client->req_incremental = true;
-        } else if (!dirty_rects.empty()) {
-            send_framebuffer_update(client, dirty_rects);
+        } else if (!client->pending_rects.empty()) {
+            send_framebuffer_update(client, client->pending_rects);
+            client->pending_rects.clear();
             client->has_pending_update = false;
         }
     }
