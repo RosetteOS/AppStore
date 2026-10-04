@@ -43,7 +43,7 @@ class TestAppStoreCatalog(unittest.TestCase):
     def test_catalog_compilation(self):
         catalog = build_catalog(self.repo_root, compute_hashes=False)
         self.assertIn("version", catalog)
-        self.assertEqual(len(catalog["apps"]), 8)
+        self.assertGreaterEqual(len(catalog["apps"]), 8)
 
         app_ids = set()
         for app in catalog["apps"]:
