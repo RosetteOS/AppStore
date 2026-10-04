@@ -3,5 +3,7 @@ __pycache__/
 *$py.class
 build/
 .venv/
-env/
-.pytest_cache/
+*.pytest_cache/
+*.o
+tools/openke-vnc/openke-vnc
+
