@@ -86,17 +86,30 @@ def build_catalog(repo_root: str, compute_hashes: bool = False, check_urls: bool
             all_errors.extend(errs)
             continue
 
-        if compute_hashes and not data.get("is_builtin") and data.get("download_url"):
-            try:
-                computed_sha = fetch_url_sha256(data["download_url"])
-                if data.get("sha256") and data["sha256"] != computed_sha:
-                    print(f"Updating sha256 for {data['id']}: {data['sha256']} -> {computed_sha}")
-                data["sha256"] = computed_sha
-                with open(af, "w", encoding="utf-8") as f:
-                    json.dump(data, f, indent=2)
-                    f.write("\n")
-            except Exception as e:
-                all_errors.append(f"Failed to fetch {data['download_url']} for {data['id']}: {e}")
+        if not data.get("is_builtin") and data.get("download_url"):
+            url = data["download_url"]
+            filename = os.path.basename(url.split("?")[0])
+            local_pkg = os.path.join(repo_root, "packages", filename)
+            if os.path.isfile(local_pkg):
+                with open(local_pkg, "rb") as pf:
+                    computed_sha = hashlib.sha256(pf.read()).hexdigest()
+                if data.get("sha256") != computed_sha:
+                    print(f"Updating sha256 for {data['id']} from local package {filename}: {data.get('sha256')} -> {computed_sha}")
+                    data["sha256"] = computed_sha
+                    with open(af, "w", encoding="utf-8") as f:
+                        json.dump(data, f, indent=2)
+                        f.write("\n")
+            elif compute_hashes:
+                try:
+                    computed_sha = fetch_url_sha256(data["download_url"])
+                    if data.get("sha256") and data["sha256"] != computed_sha:
+                        print(f"Updating sha256 for {data['id']}: {data['sha256']} -> {computed_sha}")
+                    data["sha256"] = computed_sha
+                    with open(af, "w", encoding="utf-8") as f:
+                        json.dump(data, f, indent=2)
+                        f.write("\n")
+                except Exception as e:
+                    all_errors.append(f"Failed to fetch {data['download_url']} for {data['id']}: {e}")
 
         apps.append(data)
 
