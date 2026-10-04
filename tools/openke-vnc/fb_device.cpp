@@ -240,7 +240,7 @@ void FBDevice::extract_rect(const Rect& rect, const RfbPixelFormat& target_forma
     const uint8_t* active_fb = m_fb_mem + (y_offset * m_stride);
 
     uint32_t src_bpp = m_bpp;
-    uint32_t dst_bpp = target_format.bits_per_pixel;
+    uint32_t dst_bpp = target_format.bits_per_pixel ? target_format.bits_per_pixel : 16;
     uint32_t src_bytes_per_pixel = src_bpp / 8;
     uint32_t dst_bytes_per_pixel = dst_bpp / 8;
 
@@ -250,7 +250,8 @@ void FBDevice::extract_rect(const Rect& rect, const RfbPixelFormat& target_forma
     bool direct_copy = (src_bpp == dst_bpp) &&
                        (m_native_format.red_shift == target_format.red_shift) &&
                        (m_native_format.green_shift == target_format.green_shift) &&
-                       (m_native_format.blue_shift == target_format.blue_shift);
+                       (m_native_format.blue_shift == target_format.blue_shift) &&
+                       (m_native_format.big_endian_flag == target_format.big_endian_flag);
 
     if (direct_copy) {
         // Fast direct row copy
@@ -266,9 +267,9 @@ void FBDevice::extract_rect(const Rect& rect, const RfbPixelFormat& target_forma
     // Format conversion (e.g. RGB565 -> RGB8888 or custom shifts)
     uint8_t* dst_ptr = out_data.data();
 
-    uint16_t red_max = be16toh(target_format.red_max);
-    uint16_t green_max = be16toh(target_format.green_max);
-    uint16_t blue_max = be16toh(target_format.blue_max);
+    uint16_t red_max = read_u16_be(reinterpret_cast<const uint8_t*>(&target_format.red_max));
+    uint16_t green_max = read_u16_be(reinterpret_cast<const uint8_t*>(&target_format.green_max));
+    uint16_t blue_max = read_u16_be(reinterpret_cast<const uint8_t*>(&target_format.blue_max));
     if (red_max == 0) red_max = (dst_bpp == 16) ? 31 : 255;
     if (green_max == 0) green_max = (dst_bpp == 16) ? 63 : 255;
     if (blue_max == 0) blue_max = (dst_bpp == 16) ? 31 : 255;
@@ -280,7 +281,7 @@ void FBDevice::extract_rect(const Rect& rect, const RfbPixelFormat& target_forma
             uint32_t r = 0, g = 0, b = 0;
 
             if (src_bpp == 16) {
-                uint16_t pixel = *reinterpret_cast<const uint16_t*>(src_row + (x * 2));
+                uint16_t pixel = read_u16_le(src_row + (x * 2));
                 // Extract 5-6-5 channels
                 r = (pixel >> m_native_format.red_shift) & 31;
                 g = (pixel >> m_native_format.green_shift) & 63;
@@ -291,7 +292,7 @@ void FBDevice::extract_rect(const Rect& rect, const RfbPixelFormat& target_forma
                 g = (g * 255) / 63;
                 b = (b * 255) / 31;
             } else if (src_bpp == 32) {
-                uint32_t pixel = *reinterpret_cast<const uint32_t*>(src_row + (x * 4));
+                uint32_t pixel = read_u32_le(src_row + (x * 4));
                 r = (pixel >> m_native_format.red_shift) & 255;
                 g = (pixel >> m_native_format.green_shift) & 255;
                 b = (pixel >> m_native_format.blue_shift) & 255;
@@ -304,7 +305,12 @@ void FBDevice::extract_rect(const Rect& rect, const RfbPixelFormat& target_forma
                 uint32_t dst_pixel = (r_scaled << target_format.red_shift) |
                                      (g_scaled << target_format.green_shift) |
                                      (b_scaled << target_format.blue_shift);
-                *reinterpret_cast<uint32_t*>(dst_ptr) = dst_pixel;
+                if (target_format.big_endian_flag) {
+                    dst_pixel = htobe32(dst_pixel);
+                } else {
+                    dst_pixel = htole32(dst_pixel);
+                }
+                std::memcpy(dst_ptr, &dst_pixel, 4);
                 dst_ptr += 4;
             } else if (dst_bpp == 16) {
                 uint16_t r_scaled = (r * red_max) / 255;
@@ -313,7 +319,12 @@ void FBDevice::extract_rect(const Rect& rect, const RfbPixelFormat& target_forma
                 uint16_t dst_pixel = (r_scaled << target_format.red_shift) |
                                      (g_scaled << target_format.green_shift) |
                                      (b_scaled << target_format.blue_shift);
-                *reinterpret_cast<uint16_t*>(dst_ptr) = dst_pixel;
+                if (target_format.big_endian_flag) {
+                    dst_pixel = htobe16(dst_pixel);
+                } else {
+                    dst_pixel = htole16(dst_pixel);
+                }
+                std::memcpy(dst_ptr, &dst_pixel, 2);
                 dst_ptr += 2;
             }
         }

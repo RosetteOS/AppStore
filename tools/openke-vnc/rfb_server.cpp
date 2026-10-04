@@ -130,9 +130,16 @@ void RfbServer::handle_ws_data(int client_fd, const uint8_t* data, size_t len) {
     std::memcpy(client->in_buffer.data() + old_sz, data, len);
 
     if (!client->initialized) {
-        handle_handshake(client);
-    } else {
-        handle_client_messages(client);
+        if (!handle_handshake(client)) {
+            unregister_ws_client(client->fd);
+            return;
+        }
+    }
+    if (client->initialized && !client->in_buffer.empty()) {
+        if (!handle_client_messages(client)) {
+            unregister_ws_client(client->fd);
+            return;
+        }
     }
 }
 
@@ -221,10 +228,13 @@ void RfbServer::process_network(int timeout_ms) {
             if (!client->initialized) {
                 if (!handle_handshake(client)) {
                     remove_client(client->fd);
+                    continue;
                 }
-            } else {
+            }
+            if (client->initialized && !client->in_buffer.empty()) {
                 if (!handle_client_messages(client)) {
                     remove_client(client->fd);
+                    continue;
                 }
             }
         }
@@ -249,6 +259,7 @@ bool RfbServer::handle_handshake(std::shared_ptr<RfbClient>& client) {
         ver_str[12] = '\0';
         std::sscanf(ver_str, "RFB %03d.%03d", &major, &minor);
         client->rfb_minor = minor;
+        fprintf(stdout, "[RfbServer] Client (fd %d) requested RFB %03d.%03d\n", client->fd, major, minor);
 
         buf.erase(buf.begin(), buf.begin() + 12);
 
@@ -272,6 +283,7 @@ bool RfbServer::handle_handshake(std::shared_ptr<RfbClient>& client) {
 
         uint8_t chosen_sec = buf[0];
         buf.erase(buf.begin());
+        fprintf(stdout, "[RfbServer] Client (fd %d) selected security type %u\n", client->fd, chosen_sec);
 
         if (chosen_sec != RFB_SEC_NONE) {
             fprintf(stderr, "[RfbServer] Client requested unsupported security type: %u\n", chosen_sec);
@@ -295,14 +307,15 @@ bool RfbServer::handle_handshake(std::shared_ptr<RfbClient>& client) {
 
         uint8_t shared_flag = buf[0];
         buf.erase(buf.begin());
-        (void)shared_flag;
+        fprintf(stdout, "[RfbServer] Client (fd %d) sent ClientInit (shared=%u)\n", client->fd, shared_flag);
 
         // Send ServerInit
         send_server_init(client);
         client->handshake_state = HS_INITIALIZED;
         client->initialized = true;
-        client->has_pending_update = true;
+        client->has_pending_update = false; // Do not send updates until requested
         client->req_incremental = false;
+        client->needs_full_refresh = true;
         return true;
     }
 
@@ -332,63 +345,74 @@ bool RfbServer::handle_client_messages(std::shared_ptr<RfbClient>& client) {
 
         switch (msg_type) {
             case RFB_MSG_SET_PIXEL_FORMAT: {
-                if (buf.size() < sizeof(RfbSetPixelFormat)) return true;
-                const auto* msg = reinterpret_cast<const RfbSetPixelFormat*>(buf.data());
-                client->format = msg->format;
-                buf.erase(buf.begin(), buf.begin() + sizeof(RfbSetPixelFormat));
+                if (buf.size() < 20) return true;
+                std::memcpy(&client->format, buf.data() + 4, sizeof(RfbPixelFormat));
+                uint16_t r_max = read_u16_be(reinterpret_cast<const uint8_t*>(&client->format.red_max));
+                uint16_t g_max = read_u16_be(reinterpret_cast<const uint8_t*>(&client->format.green_max));
+                uint16_t b_max = read_u16_be(reinterpret_cast<const uint8_t*>(&client->format.blue_max));
+                fprintf(stdout, "[RfbServer] Client (fd %d) SetPixelFormat: %u bpp, depth %u, big_endian %u, max(%u,%u,%u), shifts(%u,%u,%u)\n",
+                        client->fd, client->format.bits_per_pixel, client->format.depth, client->format.big_endian_flag,
+                        r_max, g_max, b_max, client->format.red_shift, client->format.green_shift, client->format.blue_shift);
+                buf.erase(buf.begin(), buf.begin() + 20);
                 break;
             }
 
             case RFB_MSG_SET_ENCODINGS: {
                 if (buf.size() < 4) return true;
-                uint16_t count = be16toh(*reinterpret_cast<const uint16_t*>(buf.data() + 2));
+                uint16_t count = read_u16_be(buf.data() + 2);
                 size_t needed = 4 + count * 4;
                 if (buf.size() < needed) return true;
 
                 client->encodings.clear();
                 for (size_t i = 0; i < count; ++i) {
-                    int32_t enc = static_cast<int32_t>(be32toh(*reinterpret_cast<const uint32_t*>(buf.data() + 4 + i * 4)));
+                    int32_t enc = static_cast<int32_t>(read_u32_be(buf.data() + 4 + i * 4));
                     client->encodings.push_back(enc);
                 }
+                fprintf(stdout, "[RfbServer] Client (fd %d) SetEncodings: %u encodings\n", client->fd, count);
                 buf.erase(buf.begin(), buf.begin() + needed);
                 break;
             }
 
             case RFB_MSG_FB_UPDATE_REQ: {
-                if (buf.size() < sizeof(RfbFramebufferUpdateRequest)) return true;
-                const auto* msg = reinterpret_cast<const RfbFramebufferUpdateRequest*>(buf.data());
+                if (buf.size() < 10) return true;
+                uint8_t incremental = buf[1];
+                uint16_t req_x = read_u16_be(buf.data() + 2);
+                uint16_t req_y = read_u16_be(buf.data() + 4);
+                uint16_t req_w = read_u16_be(buf.data() + 6);
+                uint16_t req_h = read_u16_be(buf.data() + 8);
+                (void)req_x; (void)req_y; (void)req_w; (void)req_h;
+
                 client->has_pending_update = true;
-                client->req_incremental = (msg->incremental != 0);
+                client->req_incremental = (incremental != 0);
                 if (!client->req_incremental) {
                     client->needs_full_refresh = true;
                 }
-                buf.erase(buf.begin(), buf.begin() + sizeof(RfbFramebufferUpdateRequest));
+                buf.erase(buf.begin(), buf.begin() + 10);
                 break;
             }
 
             case RFB_MSG_KEY_EVENT: {
-                if (buf.size() < sizeof(RfbKeyEvent)) return true;
-                const auto* msg = reinterpret_cast<const RfbKeyEvent*>(buf.data());
-                uint32_t key = be32toh(msg->key);
-                bool down = (msg->down_flag != 0);
-                m_injector.inject_key(key, down);
-                buf.erase(buf.begin(), buf.begin() + sizeof(RfbKeyEvent));
+                if (buf.size() < 8) return true;
+                uint8_t down = buf[1];
+                uint32_t key = read_u32_be(buf.data() + 4);
+                m_injector.inject_key(key, down != 0);
+                buf.erase(buf.begin(), buf.begin() + 8);
                 break;
             }
 
             case RFB_MSG_POINTER_EVENT: {
-                if (buf.size() < sizeof(RfbPointerEvent)) return true;
-                const auto* msg = reinterpret_cast<const RfbPointerEvent*>(buf.data());
-                uint16_t x = be16toh(msg->x);
-                uint16_t y = be16toh(msg->y);
-                m_injector.inject_pointer(x, y, msg->button_mask);
-                buf.erase(buf.begin(), buf.begin() + sizeof(RfbPointerEvent));
+                if (buf.size() < 6) return true;
+                uint8_t button_mask = buf[1];
+                uint16_t x = read_u16_be(buf.data() + 2);
+                uint16_t y = read_u16_be(buf.data() + 4);
+                m_injector.inject_pointer(x, y, button_mask);
+                buf.erase(buf.begin(), buf.begin() + 6);
                 break;
             }
 
             case RFB_MSG_CLIENT_CUT_TEXT: {
                 if (buf.size() < 8) return true;
-                uint32_t len = be32toh(*reinterpret_cast<const uint32_t*>(buf.data() + 4));
+                uint32_t len = read_u32_be(buf.data() + 4);
                 size_t needed = 8 + len;
                 if (buf.size() < needed) return true;
                 buf.erase(buf.begin(), buf.begin() + needed);
@@ -398,9 +422,11 @@ bool RfbServer::handle_client_messages(std::shared_ptr<RfbClient>& client) {
             case RFB_MSG_ENABLE_CONTINUOUS_UPDATES: {
                 if (buf.size() < 10) return true;
                 uint8_t enable = buf[1];
+                client->continuous_updates = (enable != 0);
                 if (enable) {
                     client->has_pending_update = true;
                 }
+                fprintf(stdout, "[RfbServer] Client (fd %d) ContinuousUpdates: %u\n", client->fd, enable);
                 buf.erase(buf.begin(), buf.begin() + 10);
                 break;
             }
@@ -411,7 +437,7 @@ bool RfbServer::handle_client_messages(std::shared_ptr<RfbClient>& client) {
                 size_t total_len = 9 + payload_len;
                 if (buf.size() < total_len) return true;
 
-                uint32_t flags = be32toh(*reinterpret_cast<const uint32_t*>(buf.data() + 4));
+                uint32_t flags = read_u32_be(buf.data() + 4);
                 if (flags & 1) { // FENCE_REQUEST
                     std::vector<uint8_t> resp(buf.begin(), buf.begin() + total_len);
                     uint32_t resp_flags = htobe32((flags & ~1) | 2); // set RESPONSE flag
@@ -425,8 +451,8 @@ bool RfbServer::handle_client_messages(std::shared_ptr<RfbClient>& client) {
 
             case RFB_MSG_QEMU_EXTENDED_KEY: {
                 if (buf.size() < 12) return true;
-                uint16_t down = be16toh(*reinterpret_cast<const uint16_t*>(buf.data() + 2));
-                uint32_t keysym = be32toh(*reinterpret_cast<const uint32_t*>(buf.data() + 4));
+                uint16_t down = read_u16_be(buf.data() + 2);
+                uint32_t keysym = read_u32_be(buf.data() + 4);
                 m_injector.inject_key(keysym, down != 0);
                 buf.erase(buf.begin(), buf.begin() + 12);
                 break;
@@ -457,7 +483,8 @@ void RfbServer::broadcast_updates(const std::vector<Rect>& dirty_rects) {
     }
 
     for (auto& client : clients_copy) {
-        if (!client->initialized || !client->has_pending_update) continue;
+        if (!client->initialized) continue;
+        if (!client->has_pending_update && !client->continuous_updates) continue;
 
         if (client->needs_full_refresh || !client->req_incremental) {
             // Full screen update requested (e.g. initial connection or full refresh)

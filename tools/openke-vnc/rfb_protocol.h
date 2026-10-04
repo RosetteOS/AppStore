@@ -3,6 +3,28 @@
 #include <cstdint>
 #include <endian.h>
 
+static inline uint16_t read_u16_be(const uint8_t* ptr) {
+    return (static_cast<uint16_t>(ptr[0]) << 8) | static_cast<uint16_t>(ptr[1]);
+}
+
+static inline uint32_t read_u32_be(const uint8_t* ptr) {
+    return (static_cast<uint32_t>(ptr[0]) << 24) |
+           (static_cast<uint32_t>(ptr[1]) << 16) |
+           (static_cast<uint32_t>(ptr[2]) << 8)  |
+           static_cast<uint32_t>(ptr[3]);
+}
+
+static inline uint16_t read_u16_le(const uint8_t* ptr) {
+    return static_cast<uint16_t>(ptr[0]) | (static_cast<uint16_t>(ptr[1]) << 8);
+}
+
+static inline uint32_t read_u32_le(const uint8_t* ptr) {
+    return static_cast<uint32_t>(ptr[0]) |
+           (static_cast<uint32_t>(ptr[1]) << 8)  |
+           (static_cast<uint32_t>(ptr[2]) << 16) |
+           (static_cast<uint32_t>(ptr[3]) << 24);
+}
+
 // RFB Protocol Version 3.8
 #define RFB_VERSION_STRING "RFB 003.008\n"
 

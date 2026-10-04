@@ -26,6 +26,7 @@ struct RfbClient {
     bool has_pending_update;
     bool req_incremental;
     bool needs_full_refresh;
+    bool continuous_updates;
     std::vector<Rect> pending_rects;
     RfbPixelFormat format;
     std::vector<int32_t> encodings;
@@ -40,6 +41,7 @@ struct RfbClient {
         , has_pending_update(false)
         , req_incremental(false)
         , needs_full_refresh(true)
+        , continuous_updates(false)
     {
         std::memset(&format, 0, sizeof(format));
     }
