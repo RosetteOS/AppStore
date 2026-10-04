@@ -121,17 +121,16 @@ namespace crypto {
         static const char tbl[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
         std::string out;
         out.reserve(((len + 2) / 3) * 4);
-        size_t i = 0;
-        while (i < len) {
-            uint32_t oct_a = i < len ? data[i++] : 0;
-            uint32_t oct_b = i < len ? data[i++] : 0;
-            uint32_t oct_c = i < len ? data[i++] : 0;
+        for (size_t i = 0; i < len; i += 3) {
+            uint32_t oct_a = data[i];
+            uint32_t oct_b = (i + 1 < len) ? data[i + 1] : 0;
+            uint32_t oct_c = (i + 2 < len) ? data[i + 2] : 0;
             uint32_t triple = (oct_a << 16) | (oct_b << 8) | oct_c;
 
             out.push_back(tbl[(triple >> 18) & 0x3F]);
             out.push_back(tbl[(triple >> 12) & 0x3F]);
-            out.push_back(i > len + 1 ? '=' : tbl[(triple >> 6) & 0x3F]);
-            out.push_back(i > len ? '=' : tbl[triple & 0x3F]);
+            out.push_back((i + 1 < len) ? tbl[(triple >> 6) & 0x3F] : '=');
+            out.push_back((i + 2 < len) ? tbl[triple & 0x3F] : '=');
         }
         return out;
     }
