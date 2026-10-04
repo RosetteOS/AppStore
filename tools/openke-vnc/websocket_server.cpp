@@ -442,20 +442,31 @@ static const char* EMBEDDED_WEB_HTML = R"rawhtml(<!DOCTYPE html>
             const view = new DataView(buf);
             view.setUint8(0, 5); // PointerEvent
             view.setUint8(1, buttonMask);
-            view.setUint16(2, Math.max(0, Math.min(fbWidth, x)), false);
-            view.setUint16(4, Math.max(0, Math.min(fbHeight, y)), false);
+            view.setUint16(2, Math.max(0, Math.min(fbWidth - 1, x)), false);
+            view.setUint16(4, Math.max(0, Math.min(fbHeight - 1, y)), false);
             ws.send(buf);
         }
 
         function getCanvasCoords(evt) {
             const rect = canvas.getBoundingClientRect();
-            const clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
-            const clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
-            const scaleX = canvas.width / rect.width;
-            const scaleY = canvas.height / rect.height;
+            let clientX = 0, clientY = 0;
+
+            if (evt.changedTouches && evt.changedTouches.length > 0) {
+                clientX = evt.changedTouches[0].clientX;
+                clientY = evt.changedTouches[0].clientY;
+            } else if (evt.touches && evt.touches.length > 0) {
+                clientX = evt.touches[0].clientX;
+                clientY = evt.touches[0].clientY;
+            } else {
+                clientX = evt.clientX || 0;
+                clientY = evt.clientY || 0;
+            }
+
+            const scaleX = canvas.width / (rect.width || 1);
+            const scaleY = canvas.height / (rect.height || 1);
             return {
-                x: Math.round((clientX - rect.left) * scaleX),
-                y: Math.round((clientY - rect.top) * scaleY)
+                x: Math.round(Math.max(0, Math.min(fbWidth - 1, (clientX - rect.left) * scaleX))),
+                y: Math.round(Math.max(0, Math.min(fbHeight - 1, (clientY - rect.top) * scaleY)))
             };
         }
 
@@ -496,6 +507,15 @@ static const char* EMBEDDED_WEB_HTML = R"rawhtml(<!DOCTYPE html>
         }, { passive: false });
 
         canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            if (isDown) {
+                isDown = false;
+                const p = getCanvasCoords(e);
+                sendPointerEvent(0, p.x, p.y);
+            }
+        }, { passive: false });
+
+        canvas.addEventListener('touchcancel', (e) => {
             e.preventDefault();
             if (isDown) {
                 isDown = false;
