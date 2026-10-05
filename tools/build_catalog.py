@@ -176,6 +176,12 @@ def main():
             if os.path.isfile(s):
                 shutil.copy2(s, d)
 
+    # Publish app icons alongside the catalog
+    icons_src = os.path.join(repo_root, "icons")
+    if os.path.isdir(icons_src):
+        import shutil
+        shutil.copytree(icons_src, os.path.join(output_dir, "icons"), dirs_exist_ok=True)
+
     # Copy website landing page assets
     site_src = os.path.join(repo_root, "site")
     if os.path.isdir(site_src):

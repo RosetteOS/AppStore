@@ -3,6 +3,7 @@
   "name": "Mainsail Web Interface",
   "category": "web_ui",
   "icon": "mainsail",
+  "icon_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/icons/mainsail.png",
   "description": "Default rich web interface for Klipper and Moonraker with extensive customization and multi-camera support.",
   "author": "Mainsail Crew",
   "version": "2.12.0",

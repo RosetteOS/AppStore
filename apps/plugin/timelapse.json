@@ -3,6 +3,7 @@
   "name": "Moonraker Timelapse",
   "category": "plugin",
   "icon": "timelapse",
+  "icon_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/icons/timelapse.png",
   "description": "Capture automated frame timelapses and renders during 3D prints using FFmpeg and Moonraker.",
   "author": "mainsail-crew",
   "version": "0.0.12",

@@ -3,6 +3,7 @@
   "name": "Mobileraker Companion",
   "category": "plugin",
   "icon": "mobileraker",
+  "icon_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/icons/mobileraker.png",
   "description": "Companion service for Mobileraker mobile app (iOS & Android) enabling real-time push notifications for print status, progress, M117, and errors.",
   "author": "Patrick Schmidt (Clon1998)",
   "version": "0.5.0",

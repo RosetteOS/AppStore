@@ -3,6 +3,7 @@
   "name": "HelixScreen Touch UI",
   "category": "touch_ui",
   "icon": "helixscreen",
+  "icon_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/icons/helixscreen.png",
   "description": "Modern, lightweight, and customizable touchscreen interface for Klipper built for high performance and touch gestures.",
   "author": "Preston Brown",
   "version": "1.0.2",

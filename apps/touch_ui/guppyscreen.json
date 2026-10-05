@@ -3,6 +3,7 @@
   "name": "GuppyScreen Touch UI",
   "category": "touch_ui",
   "icon": "guppyscreen",
+  "icon_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/icons/guppyscreen.png",
   "description": "Default ultra-fast native LVGL-based touchscreen interface optimized for Ingenic X2000 MIPS.",
   "author": "OpenKE & GuppyScreen Team",
   "version": "1.0.0",

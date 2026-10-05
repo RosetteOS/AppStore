@@ -3,6 +3,7 @@
   "name": "Fluidd Web Interface",
   "category": "web_ui",
   "icon": "fluidd",
+  "icon_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/icons/fluidd.png",
   "description": "Clean, responsive and lightweight web interface for Klipper with real-time status and powerful toolpath visualization.",
   "author": "Fluidd Core Team",
   "version": "1.37.6",

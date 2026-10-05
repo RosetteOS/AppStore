@@ -3,6 +3,7 @@
   "name": "Remote VNC Display",
   "category": "tool",
   "icon": "vnc",
+  "icon_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/icons/vnc.png",
   "description": "High-performance remote desktop VNC server and responsive HTML5 browser viewer for OpenKE. Connect remotely from PC, tablet, or smartphone to control the touchscreen, run updates, and manage prints.",
   "author": "OpenKE Team",
   "version": "1.0.0",

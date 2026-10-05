@@ -3,6 +3,7 @@
   "name": "Spoolman",
   "category": "plugin",
   "icon": "spoolman",
+  "icon_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/icons/spoolman.png",
   "description": "Filament spool management service with native Moonraker, Mainsail, and Fluidd integration. Tracks weights, usage, and material parameters.",
   "author": "Donkie",
   "version": "0.18.0",
