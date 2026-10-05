@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generates the 64x64 PNG app icons shipped in icons/<app_id>.png.
+Generates the 28x28 PNG app icons shipped in icons/<app_id>.png.
 
 Icons are shown by the GuppyScreen App Store panel. Where the upstream project
 publishes a logo it is downloaded and resized; for apps without a usable logo a
@@ -16,7 +16,7 @@ import urllib.request
 
 from PIL import Image, ImageDraw
 
-SIZE = 64
+SIZE = 28
 SS = 8  # supersampling factor for drawn glyphs
 OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "icons")
 
