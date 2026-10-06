@@ -122,11 +122,16 @@ const FALLBACK_CATALOG = {
       "icon": "octoapp",
       "description": "Companion service for OctoApp mobile app (iOS & Android) with real-time push notifications, print progress, webcam streaming, and remote control for Moonraker/Klipper.",
       "author": "Christian Würthner (crysxd)",
-      "version": "3.2.4-openke.1",
+      "version": "3.2.4-openke.2",
       "is_builtin": false,
-      "download_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/packages/octoapp-v3.2.4-openke.1.zip",
-      "sha256": "f769f662963eae44d169133e3008237898ac4ce7d560634ffeea6c220a701b2d",
+      "download_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/packages/octoapp-v3.2.4-openke.2.zip",
+      "sha256": "b65b367bd747eec40a05e9658435efff2ead9274df210f28a516e2660bab3266",
       "install_path": "/usr/data/openke/apps/octoapp",
+      "cleanup_config_files": [
+        "octoapp.conf",
+        "octoapp-system.cfg",
+        "octoapp-moonraker.cfg"
+      ],
       "website": "https://octoapp.eu",
       "source_url": "https://github.com/crysxd/OctoApp-Plugin"
     }

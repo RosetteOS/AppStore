@@ -13,7 +13,7 @@ from zipfile import ZipFile
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SOURCE = REPO_ROOT / "packages" / "octoapp-v3.2.4.zip"
-DESTINATION = REPO_ROOT / "packages" / "octoapp-v3.2.4-openke.1.zip"
+DESTINATION = REPO_ROOT / "packages" / "octoapp-v3.2.4-openke.2.zip"
 MODULE = "moonraker_octoapp/systemconfigmanager.py"
 
 OLD_START = "        # Special case for K1 and K1 max setups."
@@ -30,6 +30,8 @@ subscriptions:
 '''
 
 COMMENT_REPLACEMENTS = {
+    '    c_updateConfigFileName = "octoapp-system.cfg"':
+    '    c_updateConfigFileName = "octoapp-moonraker.cfg"',
     "    # We use config files to integrate into moonraker's update manager, which allows our plugin repo to stay updated.\n"
     "    # This also write a block that's used to allow the announcement system to show updates from our repo.\n"
     "    # This function ensures they exist and are up to date. If not, they are fixed.":
@@ -51,6 +53,42 @@ COMMENT_REPLACEMENTS = {
     '        logger.info("Attempting to restart Moonraker after updating its config.")',
 }
 
+LEGACY_CLEANUP_METHOD = '''    @staticmethod
+    def _removeLegacyUpdateConfigFile(klipperConfigDir:str, logger:LoggerLike):
+        legacyConfigName = "octoapp-system.cfg"
+        moonrakerConfigFilePath = os.path.join(klipperConfigDir, "moonraker.conf")
+
+        if os.path.isfile(moonrakerConfigFilePath):
+            try:
+                with open(moonrakerConfigFilePath, "r", encoding="utf-8") as file:
+                    lines = file.readlines()
+                newLines = []
+                changed = False
+                for line in lines:
+                    stripped = line.strip()
+                    if stripped.lower().startswith("[include ") and stripped.endswith("]"):
+                        includeTarget = stripped[len("[include "):-1].strip().strip("\\\"'")
+                        if os.path.basename(includeTarget) == legacyConfigName:
+                            changed = True
+                            continue
+                    newLines.append(line)
+                if changed:
+                    with open(moonrakerConfigFilePath, "w", encoding="utf-8") as file:
+                        file.writelines(newLines)
+                    logger.info("Removed legacy OctoApp config include from moonraker.conf.")
+            except Exception as e:
+                logger.warning("Failed to remove legacy OctoApp config include. " + str(e))
+
+        legacyConfigPath = os.path.join(klipperConfigDir, legacyConfigName)
+        if os.path.isfile(legacyConfigPath):
+            try:
+                os.remove(legacyConfigPath)
+                logger.info("Removed legacy OctoApp config file.")
+            except Exception as e:
+                logger.warning("Failed to remove legacy OctoApp config file. " + str(e))
+
+'''
+
 
 def main() -> None:
     with ZipFile(SOURCE, "r") as source_zip:
@@ -62,6 +100,24 @@ def main() -> None:
             if old_text not in patched_module:
                 raise ValueError(f"Expected OctoApp source text was not found: {old_text[:60]!r}")
             patched_module = patched_module.replace(old_text, new_text, 1)
+
+        include_setup = (
+            "        # Ensure that Moonraker includes the OctoApp config file.\n"
+            "        SystemConfigManager._ensureMoonrakerConfigHasUpdateConfigInclude(klipperConfigDir, logger)"
+        )
+        include_setup_with_migration = (
+            "        # Remove the previous OpenKE config filename and its include before migrating.\n"
+            "        SystemConfigManager._removeLegacyUpdateConfigFile(klipperConfigDir, logger)\n\n"
+            + include_setup
+        )
+        if include_setup not in patched_module:
+            raise ValueError("Expected Moonraker include setup was not found in OctoApp source")
+        patched_module = patched_module.replace(include_setup, include_setup_with_migration, 1)
+
+        helper_anchor = "    @staticmethod\n    def _ensureMoonrakerConfigHasUpdateConfigInclude("
+        if helper_anchor not in patched_module:
+            raise ValueError("Expected Moonraker include helper was not found in OctoApp source")
+        patched_module = patched_module.replace(helper_anchor, LEGACY_CLEANUP_METHOD + helper_anchor, 1)
 
         with ZipFile(DESTINATION, "w") as patched_zip:
             for entry in source_zip.infolist():
