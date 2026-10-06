@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "name": "OpenKE App Store Catalog",
-  "updated_at": "2026-10-06T02:28:58Z",
+  "updated_at": "2026-10-06T02:50:06Z",
   "categories": [
     {
       "id": "web_ui",
@@ -69,6 +69,10 @@
       "download_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/packages/octoapp-v3.2.4-openke.1.zip",
       "sha256": "f769f662963eae44d169133e3008237898ac4ce7d560634ffeea6c220a701b2d",
       "install_path": "/usr/data/openke/apps/octoapp",
+      "cleanup_config_files": [
+        "octoapp.conf",
+        "octoapp-system.cfg"
+      ],
       "output_dirs": [
         "octoapp"
       ],
