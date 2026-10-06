@@ -516,6 +516,19 @@ a:hover {
   height: 26px;
 }
 
+.app-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: inherit;
+}
+
+.app-logo-fallback,
+.app-logo-fallback svg {
+  width: 26px;
+  height: 26px;
+}
+
 .app-title-area {
   flex-grow: 1;
 }
@@ -879,6 +892,12 @@ a:hover {
 }
 
 .modal-icon-badge svg {
+  width: 32px;
+  height: 32px;
+}
+
+.modal-icon-badge .app-logo-fallback,
+.modal-icon-badge .app-logo-fallback svg {
   width: 32px;
   height: 32px;
 }

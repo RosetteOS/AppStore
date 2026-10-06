@@ -159,6 +159,21 @@ function getCategoryIcon(cat, id) {
   return ICONS.puzzle;
 }
 
+function getAppIconMarkup(app) {
+  const fallback = getCategoryIcon(app.category, app.id);
+  const iconUrl = app.icon_url || `https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/icons/${encodeURIComponent(app.id)}.png`;
+  let parsedUrl;
+  try {
+    parsedUrl = new URL(iconUrl, window.location.href);
+  } catch (err) {
+    return fallback;
+  }
+  if (parsedUrl.protocol !== "https:" && parsedUrl.protocol !== "http:") return fallback;
+
+  const safeUrl = parsedUrl.href.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
+  return `<img class="app-logo" src="${safeUrl}" alt="" loading="lazy" decoding="async" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="app-logo-fallback" hidden>${fallback}</span>`;
+}
+
 function getCategoryName(cat) {
   const map = {
     web_ui: "Web UI",
@@ -237,7 +252,7 @@ function render() {
   empty.style.display = "none";
 
   grid.innerHTML = filtered.map(app => {
-    const iconSvg = getCategoryIcon(app.category, app.id);
+    const iconMarkup = getAppIconMarkup(app);
     const catName = getCategoryName(app.category);
     const installCmd = getInstallCommand(app);
 
@@ -246,7 +261,7 @@ function render() {
         <div>
           <div class="card-top">
             <div class="app-icon-wrap">
-              ${iconSvg}
+              ${iconMarkup}
             </div>
             <div class="app-title-area">
               <h3 class="app-name">${app.name}</h3>
@@ -374,7 +389,7 @@ function openModal(appId) {
   if (!app) return;
 
   const modal = document.getElementById("app-modal");
-  document.getElementById("modal-icon").innerHTML = getCategoryIcon(app.category, app.id);
+  document.getElementById("modal-icon").innerHTML = getAppIconMarkup(app);
   document.getElementById("modal-name").textContent = app.name;
   document.getElementById("modal-author").textContent = "by " + (app.author || "Community");
   document.getElementById("modal-version").textContent = "v" + app.version;
