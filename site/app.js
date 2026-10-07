@@ -1,5 +1,5 @@
 /**
- * OpenKE App Store Interactive Frontend Logic
+ * Rosette App Store Interactive Frontend Logic
  */
 
 // Embedded fallback catalog in case fetch is offline / local file preview
@@ -28,10 +28,10 @@ const FALLBACK_CATALOG = {
       "author": "Fluidd Core Team",
       "version": "1.37.6",
       "is_builtin": false,
-      "download_url": "https://github.com/OpenKlipperEdition/AppStore/releases/download/packages-v1.0/fluidd-v1.37.6.zip",
+      "download_url": "https://github.com/RosetteOS/AppStore/releases/download/packages-v1.0/fluidd-v1.37.6.zip",
       "sha256": "9fe5bcd4a443f4cccd20cef222e70cc334a874070b21d116097a28405b0ed456",
-      "install_path": "/usr/data/openke/apps/fluidd",
-      "config_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/configs/fluidd.cfg",
+      "install_path": "/usr/data/rosetteos/apps/fluidd",
+      "config_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/configs/fluidd.cfg",
       "config_target": "macros/fluidd.cfg",
       "website": "https://fluidd.xyz",
       "source_url": "https://github.com/fluidd-core/fluidd"
@@ -42,11 +42,11 @@ const FALLBACK_CATALOG = {
       "category": "touch_ui",
       "icon": "guppyscreen",
       "description": "Default ultra-fast native LVGL-based touchscreen interface optimized for Ingenic X2000 MIPS.",
-      "author": "OpenKE & GuppyScreen Team",
+      "author": "Rosette & GuppyScreen Team",
       "version": "1.0.0",
       "is_builtin": true,
       "builtin_path": "/opt/guppyscreen/guppyscreen",
-      "source_url": "https://github.com/OpenKlipperEdition/GuppyScreen"
+      "source_url": "https://github.com/RosetteOS/GuppyScreen"
     },
     {
       "id": "helixscreen",
@@ -57,9 +57,9 @@ const FALLBACK_CATALOG = {
       "author": "Preston Brown",
       "version": "1.0.2",
       "is_builtin": false,
-      "download_url": "https://github.com/OpenKlipperEdition/AppStore/releases/download/packages-v1.0/helixscreen-k1-v1.0.2.tar.gz",
+      "download_url": "https://github.com/RosetteOS/AppStore/releases/download/packages-v1.0/helixscreen-k1-v1.0.2.tar.gz",
       "sha256": "d1b068f5218982ae6a7f6af839b54919683d9fe7f667c12a52bf34dd5c3e0564",
-      "install_path": "/usr/data/openke/apps/helixscreen",
+      "install_path": "/usr/data/rosetteos/apps/helixscreen",
       "executable": "bin/helix-screen",
       "website": "https://helixscreen.org",
       "source_url": "https://github.com/prestonbrown/helixscreen"
@@ -73,11 +73,11 @@ const FALLBACK_CATALOG = {
       "author": "mainsail-crew",
       "version": "0.0.12",
       "is_builtin": false,
-      "download_url": "https://github.com/OpenKlipperEdition/AppStore/releases/download/packages-v1.0/timelapse-v0.0.12.zip",
+      "download_url": "https://github.com/RosetteOS/AppStore/releases/download/packages-v1.0/timelapse-v0.0.12.zip",
       "sha256": "7b65e5e6aa4f1aaff426633d86389871c5722ac5c80ec05587887cae4d3a9374",
-      "install_path": "/usr/data/openke/apps/timelapse",
+      "install_path": "/usr/data/rosetteos/apps/timelapse",
       "moonraker_component": "component/timelapse.py",
-      "config_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/configs/timelapse.cfg",
+      "config_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/configs/timelapse.cfg",
       "config_target": "macros/timelapse.cfg",
       "klipper_include": true,
       "website": "https://github.com/mainsail-crew/moonraker-timelapse",
@@ -92,10 +92,10 @@ const FALLBACK_CATALOG = {
       "author": "Patrick Schmidt (Clon1998)",
       "version": "0.5.0",
       "is_builtin": false,
-      "download_url": "https://github.com/OpenKlipperEdition/AppStore/releases/download/packages-v1.0/mobileraker-v0.5.0.zip",
+      "download_url": "https://github.com/RosetteOS/AppStore/releases/download/packages-v1.0/mobileraker-v0.5.0.zip",
       "sha256": "b9d6b3ad11c7eed4fbe577f887dc8fcd4c2d1058a27b3ef276bd6a8335c72d5d",
-      "install_path": "/usr/data/openke/apps/mobileraker",
-      "config_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/configs/mobileraker.conf",
+      "install_path": "/usr/data/rosetteos/apps/mobileraker",
+      "config_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/configs/mobileraker.conf",
       "config_target": "mobileraker.conf",
       "website": "https://github.com/Clon1998/mobileraker",
       "source_url": "https://github.com/Clon1998/mobileraker_companion"
@@ -109,9 +109,9 @@ const FALLBACK_CATALOG = {
       "author": "Donkie",
       "version": "0.18.0",
       "is_builtin": false,
-      "download_url": "https://github.com/OpenKlipperEdition/AppStore/releases/download/packages-v1.0/spoolman-v0.18.0.zip",
+      "download_url": "https://github.com/RosetteOS/AppStore/releases/download/packages-v1.0/spoolman-v0.18.0.zip",
       "sha256": "58d1b5368aee6474ffa37d504b56d8a10ba2b0dd89cf0d711e92369fdc41c878",
-      "install_path": "/usr/data/openke/apps/spoolman",
+      "install_path": "/usr/data/rosetteos/apps/spoolman",
       "website": "https://github.com/Donkie/Spoolman",
       "source_url": "https://github.com/Donkie/Spoolman"
     },
@@ -120,17 +120,16 @@ const FALLBACK_CATALOG = {
       "name": "OctoApp Companion",
       "category": "plugin",
       "icon": "octoapp",
-      "icon_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/icons/octoapp.png",
+      "icon_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/icons/octoapp.png",
       "description": "Companion service for OctoApp mobile app (iOS & Android) with real-time push notifications, print progress, webcam streaming, and remote control for Moonraker/Klipper.",
       "author": "Christian Würthner (crysxd)",
-      "version": "3.2.4-openke.2",
+      "version": "3.2.4-rosetteos.2",
       "is_builtin": false,
-      "download_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/packages/octoapp-v3.2.4-openke.2.zip",
-      "sha256": "b65b367bd747eec40a05e9658435efff2ead9274df210f28a516e2660bab3266",
-      "install_path": "/usr/data/openke/apps/octoapp",
+      "download_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/packages/octoapp-v3.2.4-rosetteos.2.zip",
+      "sha256": "ce20da477e87a01d56a49a3e28032e2a5695c2644fe55c9e5ab6ca6dce6d9c4e",
+      "install_path": "/usr/data/rosetteos/apps/octoapp",
       "cleanup_config_files": [
         "octoapp.conf",
-        "octoapp-system.cfg",
         "octoapp-moonraker.cfg"
       ],
       "website": "https://octoapp.eu",
@@ -167,7 +166,7 @@ function getCategoryIcon(cat, id) {
 
 function getAppIconMarkup(app) {
   const fallback = getCategoryIcon(app.category, app.id);
-  const iconUrl = app.icon_url || `https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/icons/${encodeURIComponent(app.id)}.png`;
+  const iconUrl = app.icon_url || `https://raw.githubusercontent.com/RosetteOS/AppStore/main/icons/${encodeURIComponent(app.id)}.png`;
   let parsedUrl;
   try {
     parsedUrl = new URL(iconUrl, window.location.href);
@@ -225,11 +224,11 @@ function updateStats() {
 
 function getInstallCommand(app) {
   if (app.is_builtin) {
-    if (app.category === "web_ui") return `openke-app set-active-web ${app.id}`;
-    if (app.category === "touch_ui") return `openke-app set-active-touch ${app.id}`;
+    if (app.category === "web_ui") return `rosetteos-app set-active-web ${app.id}`;
+    if (app.category === "touch_ui") return `rosetteos-app set-active-touch ${app.id}`;
     return `# ${app.name} is pre-installed in base firmware`;
   }
-  return `openke-app install ${app.id}`;
+  return `rosetteos-app install ${app.id}`;
 }
 
 function render() {

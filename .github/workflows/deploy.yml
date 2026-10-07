@@ -1,4 +1,4 @@
-name: Build and Deploy OpenKE App Store Catalog
+name: Build and Deploy RosetteOS App Store Catalog
 
 on:
   push:

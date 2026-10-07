@@ -3,13 +3,13 @@
   "name": "GuppyScreen Touch UI",
   "category": "touch_ui",
   "icon": "guppyscreen",
-  "icon_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/icons/guppyscreen.png",
+  "icon_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/icons/guppyscreen.png",
   "description": "Default ultra-fast native LVGL-based touchscreen interface optimized for Ingenic X2000 MIPS.",
-  "author": "OpenKE & GuppyScreen Team",
+  "author": "Rosette & GuppyScreen Team",
   "version": "1.0.0",
   "type": "touch_ui",
   "is_builtin": true,
   "builtin_path": "/opt/guppyscreen/guppyscreen",
   "probe_path": "/opt/guppyscreen/guppyscreen",
-  "source_url": "https://github.com/OpenKlipperEdition/GuppyScreen"
+  "source_url": "https://github.com/RosetteOS/GuppyScreen"
 }

@@ -97,7 +97,7 @@ bool UinputInjector::init(uint16_t screen_w, uint16_t screen_h) {
 
         struct uinput_user_dev uidev;
         std::memset(&uidev, 0, sizeof(uidev));
-        std::snprintf(uidev.name, UINPUT_MAX_NAME_SIZE, "OpenKE VNC Remote Input");
+        std::snprintf(uidev.name, UINPUT_MAX_NAME_SIZE, "Rosette VNC Remote Input");
         uidev.id.bustype = BUS_VIRTUAL;
         uidev.id.vendor  = 0x1234;
         uidev.id.product = 0x5678;
@@ -116,7 +116,7 @@ bool UinputInjector::init(uint16_t screen_w, uint16_t screen_h) {
 
         if (write(m_uinput_fd, &uidev, sizeof(uidev)) >= 0) {
             if (ioctl(m_uinput_fd, UI_DEV_CREATE) >= 0) {
-                fprintf(stdout, "[UinputInjector] Created virtual touch device 'OpenKE VNC Remote Input' via uinput\n");
+                fprintf(stdout, "[UinputInjector] Created virtual touch device 'Rosette VNC Remote Input' via uinput\n");
             } else {
                 close(m_uinput_fd);
                 m_uinput_fd = -1;
@@ -256,4 +256,3 @@ void UinputInjector::inject_key(uint32_t keysym, bool down) {
         sync_fd(m_uinput_fd);
     }
 }
-

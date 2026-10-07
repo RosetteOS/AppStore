@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Unit tests for OpenKE App Store repository and catalog builder.
+Unit tests for Rosette App Store repository and catalog builder.
 """
 
 import os

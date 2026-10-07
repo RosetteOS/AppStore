@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-OpenKE App Store Local Development Server
+Rosette App Store Local Development Server
 
 Serves the compiled catalog and static assets over HTTP.
 """
@@ -25,7 +25,7 @@ class AppStoreHandler(SimpleHTTPRequestHandler):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="OpenKE App Store Local Server")
+    parser = argparse.ArgumentParser(description="Rosette App Store Local Server")
     parser.add_argument("--port", type=int, default=8000, help="Port to listen on (default 8000)")
     parser.add_argument("--host", default="0.0.0.0", help="Host interface (default 0.0.0.0)")
     parser.add_argument("--dir", default=None, help="Directory to serve (default dist/)")
@@ -41,7 +41,7 @@ def main():
     os.chdir(serve_dir)
     server_address = (args.host, args.port)
     httpd = HTTPServer(server_address, AppStoreHandler)
-    print(f"OpenKE App Store Server listening at http://{args.host}:{args.port}")
+    print(f"Rosette App Store Server listening at http://{args.host}:{args.port}")
     print(f"Serving directory: {serve_dir}")
     print(f"Catalog URL: http://{args.host}:{args.port}/apps.json")
     try:

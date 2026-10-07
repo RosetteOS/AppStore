@@ -1,6 +1,6 @@
-# OpenKE App Store Repository
+# Rosette App Store Repository
 
-Official application repository and catalog distribution system for [OpenKE](https://github.com/OpenKlipperEdition/OpenKE) and [GuppyScreen](https://github.com/OpenKlipperEdition/GuppyScreen).
+Official application repository and catalog distribution system for RosetteOS and [GuppyScreen](https://github.com/RosetteOS/GuppyScreen).
 
 ## Repository Architecture
 
@@ -24,7 +24,7 @@ AppStore/
 
 ## Adding a New Application
 
-To submit a new application or service to the OpenKE App Store:
+To submit a new application or service to the Rosette App Store:
 
 1. Create a JSON definition file under `apps/<category>/<app_id>.json`:
 
@@ -40,8 +40,8 @@ To submit a new application or service to the OpenKE App Store:
   "is_builtin": false,
   "download_url": "https://github.com/example/my_app/releases/download/v1.0.0/my_app.tar.gz",
   "sha256": "optional_sha256_checksum",
-  "install_path": "/usr/data/openke/apps/my_app",
-  "probe_path": "/usr/data/openke/apps/my_app/main.py",
+  "install_path": "/usr/data/rosetteos/apps/my_app",
+  "probe_path": "/usr/data/rosetteos/apps/my_app/main.py",
   "source_url": "https://github.com/example/my_app"
 }
 ```
@@ -61,5 +61,4 @@ To start the local development server on the default address `http://192.168.1.8
 python3 tools/build_catalog.py
 python3 tools/serve.py --host 0.0.0.0 --port 8000
 ```
-OpenKE and GuppyScreen automatically prioritize `http://192.168.1.88:8000/apps.json` as their primary development endpoint before falling back to GitHub.
-
+RosetteOS and GuppyScreen automatically prioritize `http://192.168.1.88:8000/apps.json` as their primary development endpoint before falling back to GitHub.

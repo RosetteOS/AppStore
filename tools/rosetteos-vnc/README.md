@@ -1,6 +1,6 @@
-# OpenKE Remote Display VNC Server (openke-vnc)
+# Rosette Remote Display VNC Server (rosetteos-vnc)
 
-High-performance, lightweight Linux framebuffer VNC server and responsive HTML5 browser viewer for OpenKE (Ender 3 V3 SE / KE, Ingenic X2000 MIPS SoC).
+High-performance, lightweight Linux framebuffer VNC server and responsive HTML5 browser viewer for RosetteOS (Ender 3 V3 SE / KE, Ingenic X2000 MIPS SoC).
 
 ## Features
 - **Framebuffer Capture**: Directly memory-maps `/dev/fb0` with support for RGB565 and 32-bit pixel formats.
@@ -20,5 +20,5 @@ make
 ## Running on Target
 
 ```sh
-./openke-vnc -p 5900 -w 5800
+./rosetteos-vnc -p 5900 -w 5800
 ```

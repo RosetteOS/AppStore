@@ -3,22 +3,22 @@
   "name": "Remote VNC Display",
   "category": "tool",
   "icon": "vnc",
-  "icon_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/icons/vnc.png",
-  "description": "High-performance remote desktop VNC server and responsive HTML5 browser viewer for OpenKE. Connect remotely from PC, tablet, or smartphone to control the touchscreen, run updates, and manage prints.",
-  "author": "OpenKE Team",
+  "icon_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/icons/vnc.png",
+  "description": "High-performance remote desktop VNC server and responsive HTML5 browser viewer for RosetteOS. Connect remotely from PC, tablet, or smartphone to control the touchscreen, run updates, and manage prints.",
+  "author": "Rosette Team",
   "version": "1.0.0",
   "type": "tool",
   "is_builtin": false,
-  "download_url": "https://github.com/OpenKlipperEdition/AppStore/releases/download/packages-v1.0/vnc-v1.0.0.zip",
-  "sha256": "61e8214ea56a12bff5313cb91781270d6afa4c0a2c1eb51a777c34398467ef77",
-  "executable": "openke-vnc",
-  "install_path": "/usr/data/openke/apps/vnc",
+  "download_url": "https://github.com/RosetteOS/AppStore/releases/download/packages-v1.0/vnc-v1.0.0.zip",
+  "sha256": "02f5dea75112477402935dfd97073a2090db655d5068f9cfac2c7da9db0f3deb",
+  "executable": "rosetteos-vnc",
+  "install_path": "/usr/data/rosetteos/apps/vnc",
   "service": {
-    "exec": "/usr/data/openke/apps/vnc/openke-vnc -p 5900 -w 5800",
+    "exec": "/usr/data/rosetteos/apps/vnc/rosetteos-vnc -p 5900 -w 5800",
     "priority": 60,
     "oom_score_adj": -200
   },
-  "probe_path": "/usr/data/openke/apps/vnc/openke-vnc",
-  "website": "https://github.com/OpenKlipperEdition/AppStore",
-  "source_url": "https://github.com/OpenKlipperEdition/AppStore/tree/main/tools/openke-vnc"
+  "probe_path": "/usr/data/rosetteos/apps/vnc/rosetteos-vnc",
+  "website": "https://github.com/RosetteOS/AppStore",
+  "source_url": "https://github.com/RosetteOS/AppStore/tree/main/tools/rosetteos-vnc"
 }

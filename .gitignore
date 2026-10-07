@@ -5,5 +5,5 @@ build/
 .venv/
 *.pytest_cache/
 *.o
-tools/openke-vnc/openke-vnc
+tools/rosetteos-vnc/rosetteos-vnc
 

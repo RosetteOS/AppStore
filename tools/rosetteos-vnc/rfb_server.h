@@ -49,7 +49,7 @@ struct RfbClient {
 
 class RfbServer {
 public:
-    RfbServer(FBDevice& fb, UinputInjector& injector, uint16_t port = 5900, const std::string& desktop_name = "OpenKE Display");
+    RfbServer(FBDevice& fb, UinputInjector& injector, uint16_t port = 5900, const std::string& desktop_name = "Rosette Display");
     ~RfbServer();
 
     bool start();

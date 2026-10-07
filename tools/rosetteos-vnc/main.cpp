@@ -21,14 +21,14 @@ static void signal_handler(int sig) {
 
 static void print_usage(const char* prog) {
     fprintf(stdout,
-        "OpenKE Remote Display VNC Server v1.0.0\n"
+        "Rosette Remote Display VNC Server v1.0.0\n"
         "Usage: %s [options]\n\n"
         "Options:\n"
         "  -p, --port <port>        VNC port for native VNC clients (default: 5900)\n"
         "  -w, --ws-port <port>     Web / WebSocket port for browser access (default: 5800)\n"
         "  -f, --fb <path>          Framebuffer device path (default: /dev/fb0)\n"
         "  -r, --fps <hz>           Target update rate in FPS (default: 30, max: 60)\n"
-        "  -n, --name <name>        Desktop display name (default: OpenKE Remote Display)\n"
+        "  -n, --name <name>        Desktop display name (default: Rosette Remote Display)\n"
         "      --no-ws              Disable web/websocket server\n"
         "      --no-vnc             Disable standard VNC server\n"
         "  -h, --help               Show this help message\n",
@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
     uint16_t ws_port = 5800;
     std::string fb_path = "/dev/fb0";
     uint32_t target_fps = 30;
-    std::string desktop_name = "OpenKE Remote Display";
+    std::string desktop_name = "Rosette Remote Display";
     bool enable_ws = true;
     bool enable_vnc = true;
 
@@ -77,7 +77,7 @@ int main(int argc, char** argv) {
     std::signal(SIGPIPE, SIG_IGN);
 
     fprintf(stdout, "=======================================================\n");
-    fprintf(stdout, " OpenKE Remote Display VNC Server v1.0.0\n");
+    fprintf(stdout, " Rosette Remote Display VNC Server v1.0.0\n");
     fprintf(stdout, "=======================================================\n");
 
     FBDevice fb;
@@ -133,7 +133,7 @@ int main(int argc, char** argv) {
         }
     }
 
-    fprintf(stdout, "\n[Main] Stopping OpenKE VNC Server...\n");
+    fprintf(stdout, "\n[Main] Stopping Rosette VNC Server...\n");
     if (enable_ws) ws.stop();
     if (enable_vnc) rfb.stop();
     injector.close_device();

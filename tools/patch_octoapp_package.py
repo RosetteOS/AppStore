@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Build the OpenKE OctoApp package without Moonraker-managed updates.
+"""Build the RosetteOS OctoApp package without Moonraker-managed updates.
 
-OpenKE installs OctoApp from an AppStore archive, not a Git checkout or Python
+RosetteOS installs OctoApp from an AppStore archive, not a Git checkout or Python
 virtual environment. Upstream's generated git_repo updater configuration is
 therefore invalid here. Keep its announcements subscription in the generated
-Moonraker include while leaving package updates to OpenKE's AppStore.
+Moonraker include while leaving package updates to RosetteOS's AppStore.
 """
 
 from pathlib import Path
@@ -13,13 +13,13 @@ from zipfile import ZipFile
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SOURCE = REPO_ROOT / "packages" / "octoapp-v3.2.4.zip"
-DESTINATION = REPO_ROOT / "packages" / "octoapp-v3.2.4-openke.2.zip"
+DESTINATION = REPO_ROOT / "packages" / "octoapp-v3.2.4-rosetteos.2.zip"
 MODULE = "moonraker_octoapp/systemconfigmanager.py"
 
 OLD_START = "        # Special case for K1 and K1 max setups."
 OLD_END = "        # Create the expected file path of our update config."
-REPLACEMENT = '''        # OpenKE installs OctoApp from an AppStore archive, not a Git checkout
-        # or a Python virtual environment. OpenKE's AppStore manages updates,
+REPLACEMENT = '''        # RosetteOS installs OctoApp from an AppStore archive, not a Git checkout
+        # or a Python virtual environment. RosetteOS's AppStore manages updates,
         # so only configure OctoApp announcements in Moonraker.
         expectedUpdateFileContent = \'''\\
 [announcements]
@@ -36,7 +36,7 @@ COMMENT_REPLACEMENTS = {
     "    # This also write a block that's used to allow the announcement system to show updates from our repo.\n"
     "    # This function ensures they exist and are up to date. If not, they are fixed.":
     "    # Keep OctoApp's announcement subscription in its Moonraker include.\n"
-    "    # AppStore handles OpenKE package updates.",
+    "    # AppStore handles RosetteOS package updates.",
     "        # Create the expected file path of our update config.":
     "        # Create the expected OctoApp config file path.",
     "        # Ensure that the main moonraker config file has the include for our sub config file":
@@ -53,45 +53,15 @@ COMMENT_REPLACEMENTS = {
     '        logger.info("Attempting to restart Moonraker after updating its config.")',
 }
 
-LEGACY_CLEANUP_METHOD = '''    @staticmethod
-    def _removeLegacyUpdateConfigFile(klipperConfigDir:str, logger:LoggerLike):
-        legacyConfigName = "octoapp-system.cfg"
-        moonrakerConfigFilePath = os.path.join(klipperConfigDir, "moonraker.conf")
-
-        if os.path.isfile(moonrakerConfigFilePath):
-            try:
-                with open(moonrakerConfigFilePath, "r", encoding="utf-8") as file:
-                    lines = file.readlines()
-                newLines = []
-                changed = False
-                for line in lines:
-                    stripped = line.strip()
-                    if stripped.lower().startswith("[include ") and stripped.endswith("]"):
-                        includeTarget = stripped[len("[include "):-1].strip().strip("\\\"'")
-                        if os.path.basename(includeTarget) == legacyConfigName:
-                            changed = True
-                            continue
-                    newLines.append(line)
-                if changed:
-                    with open(moonrakerConfigFilePath, "w", encoding="utf-8") as file:
-                        file.writelines(newLines)
-                    logger.info("Removed legacy OctoApp config include from moonraker.conf.")
-            except Exception as e:
-                logger.warning("Failed to remove legacy OctoApp config include. " + str(e))
-
-        legacyConfigPath = os.path.join(klipperConfigDir, legacyConfigName)
-        if os.path.isfile(legacyConfigPath):
-            try:
-                os.remove(legacyConfigPath)
-                logger.info("Removed legacy OctoApp config file.")
-            except Exception as e:
-                logger.warning("Failed to remove legacy OctoApp config file. " + str(e))
-
-'''
-
 
 def main() -> None:
     with ZipFile(SOURCE, "r") as source_zip:
+        launcher = source_zip.read("server.py").decode("utf-8")
+        if "OpenKE" not in launcher or "/usr/data/openke/" not in launcher:
+            raise ValueError("Expected old AppStore branding was not found in OctoApp launcher")
+        launcher = launcher.replace("OpenKE", "RosetteOS")
+        launcher = launcher.replace("/usr/data/openke/", "/usr/data/rosetteos/")
+
         original_module = source_zip.read(MODULE).decode("utf-8")
         start = original_module.index(OLD_START)
         end = original_module.index(OLD_END, start)
@@ -105,25 +75,16 @@ def main() -> None:
             "        # Ensure that Moonraker includes the OctoApp config file.\n"
             "        SystemConfigManager._ensureMoonrakerConfigHasUpdateConfigInclude(klipperConfigDir, logger)"
         )
-        include_setup_with_migration = (
-            "        # Remove the previous OpenKE config filename and its include before migrating.\n"
-            "        SystemConfigManager._removeLegacyUpdateConfigFile(klipperConfigDir, logger)\n\n"
-            + include_setup
-        )
         if include_setup not in patched_module:
             raise ValueError("Expected Moonraker include setup was not found in OctoApp source")
-        patched_module = patched_module.replace(include_setup, include_setup_with_migration, 1)
-
-        helper_anchor = "    @staticmethod\n    def _ensureMoonrakerConfigHasUpdateConfigInclude("
-        if helper_anchor not in patched_module:
-            raise ValueError("Expected Moonraker include helper was not found in OctoApp source")
-        patched_module = patched_module.replace(helper_anchor, LEGACY_CLEANUP_METHOD + helper_anchor, 1)
 
         with ZipFile(DESTINATION, "w") as patched_zip:
             for entry in source_zip.infolist():
                 contents = (
                     patched_module.encode("utf-8")
                     if entry.filename == MODULE
+                    else launcher.encode("utf-8")
+                    if entry.filename == "server.py"
                     else source_zip.read(entry.filename)
                 )
                 patched_zip.writestr(entry, contents)

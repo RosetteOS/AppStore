@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OpenKE App Store | Official Extensions & UIs for OpenKE</title>
-  <meta name="description" content="Discover, install, and manage Web Interfaces, Touchscreen UIs, and Moonraker Plugins for OpenKE on Ingenic X2000 MIPS / Ender-3 V3 KE.">
+  <title>Rosette App Store | Extensions & UIs for RosetteOS</title>
+  <meta name="description" content="Discover, install, and manage Web Interfaces, Touchscreen UIs, and Moonraker Plugins for RosetteOS on Ingenic X2000 MIPS / Ender-3 V3 KE.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@
           </svg>
         </div>
         <div class="brand-text">
-          <span class="brand-name">OpenKE</span>
+          <span class="brand-name">Rosette</span>
           <span class="brand-badge">App Store</span>
         </div>
       </div>
@@ -32,7 +32,7 @@
         <a href="#catalog" class="nav-link active">Catalog</a>
         <a href="#quickstart" class="nav-link">CLI Quickstart</a>
         <a href="#contribute" class="nav-link">Submit App</a>
-        <a href="https://github.com/OpenKlipperEdition/AppStore" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
+        <a href="https://github.com/RosetteOS/AppStore" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
           <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
           </svg>
@@ -48,9 +48,9 @@
       <div class="hero-content">
         <div class="hero-pill">
           <span class="pill-dot"></span>
-          <span>Official Package & UI Catalog for OpenKE Firmware</span>
+          <span>Official Package & UI Catalog for RosetteOS</span>
         </div>
-        <h1 class="hero-title">Expand your 3D Printer with <span class="gradient-text">OpenKE Apps</span></h1>
+        <h1 class="hero-title">Expand your 3D Printer with <span class="gradient-text">Rosette Apps</span></h1>
         <p class="hero-subtitle">
           Seamlessly discover, install, update, and switch between Web Interfaces, Native Touchscreen UIs, and Moonraker plugins with a single command.
         </p>
@@ -58,8 +58,8 @@
         <div class="quick-command-box">
           <div class="command-line">
             <span class="prompt">$</span>
-            <code id="hero-cmd">openke-app list</code>
-            <button class="copy-btn" onclick="copyCommand('openke-app list', this)" title="Copy command">
+            <code id="hero-cmd">rosetteos-app list</code>
+            <button class="copy-btn" onclick="copyCommand('rosetteos-app list', this)" title="Copy command">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -150,7 +150,7 @@
   <section class="quickstart-section" id="quickstart">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">Using <code class="inline-code">openke-app</code> CLI</h2>
+        <h2 class="section-title">Using the <code class="inline-code">rosetteos-app</code> command</h2>
         <p class="section-subtitle">Manage everything straight from SSH or via Klipper G-code Macros in Mainsail / Fluidd.</p>
       </div>
 
@@ -162,13 +162,13 @@
           </div>
           <p>View all installed and available applications along with version status:</p>
           <div class="code-block">
-            <code>openke-app list</code>
-            <button class="copy-btn" onclick="copyCommand('openke-app list', this)">Copy</button>
+            <code>rosetteos-app list</code>
+            <button class="copy-btn" onclick="copyCommand('rosetteos-app list', this)">Copy</button>
           </div>
           <p>Refresh catalog from remote repository:</p>
           <div class="code-block">
-            <code>openke-app update</code>
-            <button class="copy-btn" onclick="copyCommand('openke-app update', this)">Copy</button>
+            <code>rosetteos-app update</code>
+            <button class="copy-btn" onclick="copyCommand('rosetteos-app update', this)">Copy</button>
           </div>
         </div>
 
@@ -179,13 +179,13 @@
           </div>
           <p>Install and automatically configure Moonraker & Klipper includes:</p>
           <div class="code-block">
-            <code>openke-app install fluidd</code>
-            <button class="copy-btn" onclick="copyCommand('openke-app install fluidd', this)">Copy</button>
+            <code>rosetteos-app install fluidd</code>
+            <button class="copy-btn" onclick="copyCommand('rosetteos-app install fluidd', this)">Copy</button>
           </div>
           <p>Install and auto-activate in one step:</p>
           <div class="code-block">
-            <code>openke-app install fluidd --activate</code>
-            <button class="copy-btn" onclick="copyCommand('openke-app install fluidd --activate', this)">Copy</button>
+            <code>rosetteos-app install fluidd --activate</code>
+            <button class="copy-btn" onclick="copyCommand('rosetteos-app install fluidd --activate', this)">Copy</button>
           </div>
         </div>
 
@@ -196,13 +196,13 @@
           </div>
           <p>Switch default web frontend (Mainsail &harr; Fluidd):</p>
           <div class="code-block">
-            <code>openke-app set-active-web fluidd</code>
-            <button class="copy-btn" onclick="copyCommand('openke-app set-active-web fluidd', this)">Copy</button>
+            <code>rosetteos-app set-active-web fluidd</code>
+            <button class="copy-btn" onclick="copyCommand('rosetteos-app set-active-web fluidd', this)">Copy</button>
           </div>
           <p>Switch touchscreen display UI (GuppyScreen &harr; HelixScreen):</p>
           <div class="code-block">
-            <code>openke-app set-active-touch helixscreen</code>
-            <button class="copy-btn" onclick="copyCommand('openke-app set-active-touch helixscreen', this)">Copy</button>
+            <code>rosetteos-app set-active-touch helixscreen</code>
+            <button class="copy-btn" onclick="copyCommand('rosetteos-app set-active-touch helixscreen', this)">Copy</button>
           </div>
         </div>
 
@@ -213,13 +213,13 @@
           </div>
           <p>Upgrade all installed apps to the latest versions:</p>
           <div class="code-block">
-            <code>openke-app upgrade --all</code>
-            <button class="copy-btn" onclick="copyCommand('openke-app upgrade --all', this)">Copy</button>
+            <code>rosetteos-app upgrade --all</code>
+            <button class="copy-btn" onclick="copyCommand('rosetteos-app upgrade --all', this)">Copy</button>
           </div>
           <p>Cleanly uninstall with automatic fallback to defaults:</p>
           <div class="code-block">
-            <code>openke-app remove fluidd</code>
-            <button class="copy-btn" onclick="copyCommand('openke-app remove fluidd', this)">Copy</button>
+            <code>rosetteos-app remove fluidd</code>
+            <button class="copy-btn" onclick="copyCommand('rosetteos-app remove fluidd', this)">Copy</button>
           </div>
         </div>
       </div>
@@ -236,8 +236,8 @@
             Adding a new UI, plugin, or tool requires <strong>no firmware rebuilding</strong>. Simply open a pull request adding a JSON manifest to <code>apps/&lt;category&gt;/&lt;app_id&gt;.json</code> in our GitHub repository.
           </p>
           <div class="contribute-actions">
-            <a href="https://github.com/OpenKlipperEdition/AppStore#adding-a-new-app-to-the-catalog" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Read Submission Guide</a>
-            <a href="https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/dist/apps.json" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Raw apps.json</a>
+            <a href="https://github.com/RosetteOS/AppStore#adding-a-new-app-to-the-catalog" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Read Submission Guide</a>
+            <a href="https://raw.githubusercontent.com/RosetteOS/AppStore/main/dist/apps.json" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Raw apps.json</a>
           </div>
         </div>
         <div class="contribute-code-preview">
@@ -252,7 +252,7 @@
   "version": "1.0.0",
   "download_url": "https://.../pkg.zip",
   "sha256": "...",
-  "install_path": "/usr/data/openke/apps/my_plugin",
+  "install_path": "/usr/data/rosetteos/apps/my_plugin",
   "moonraker_component": "component/plugin.py",
   "moonraker_update_manager": {
     "type": "git_repo",
@@ -288,7 +288,7 @@
         <div class="modal-install-section">
           <h4>Installation Command</h4>
           <div class="code-block">
-            <code id="modal-cmd">openke-app install ...</code>
+            <code id="modal-cmd">rosetteos-app install ...</code>
             <button class="copy-btn" id="modal-copy-btn">Copy</button>
           </div>
         </div>
@@ -326,13 +326,13 @@
   <footer class="site-footer">
     <div class="container footer-container">
       <div class="footer-left">
-        <p>&copy; 2026 <strong>OpenKE Project</strong>. Open-source Klipper firmware ecosystem.</p>
+        <p>&copy; 2026 <strong>Rosette Project</strong>. Open-source Klipper firmware ecosystem.</p>
         <p class="footer-sub">Designed for Creality Ender-3 V3 KE, Ingenic X2000 MIPS Linux platforms.</p>
       </div>
       <div class="footer-right">
-        <a href="https://github.com/OpenKlipperEdition/OpenKE" target="_blank" rel="noopener noreferrer">OpenKE Firmware</a>
-        <a href="https://github.com/OpenKlipperEdition/AppStore" target="_blank" rel="noopener noreferrer">App Store Repository</a>
-        <a href="https://github.com/OpenKlipperEdition/GuppyScreen" target="_blank" rel="noopener noreferrer">GuppyScreen</a>
+        <a href="https://github.com/RosetteOS/RosetteOS" target="_blank" rel="noopener noreferrer">RosetteOS Firmware</a>
+        <a href="https://github.com/RosetteOS/AppStore" target="_blank" rel="noopener noreferrer">App Store Repository</a>
+        <a href="https://github.com/RosetteOS/GuppyScreen" target="_blank" rel="noopener noreferrer">GuppyScreen</a>
       </div>
     </div>
   </footer>

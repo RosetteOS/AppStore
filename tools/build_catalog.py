@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-OpenKE App Store Catalog Builder & Validator
+Rosette App Store Catalog Builder & Validator
 
 Scans per-app JSON definitions, validates schemas, computes checksums (optional),
 and compiles a unified dist/apps.json (and dist/catalog.json) suitable for distribution.
@@ -49,7 +49,7 @@ def fetch_url_sha256(url: str) -> str:
     print(f"Fetching and computing sha256 for: {url}")
     req = urllib.request.Request(
         url,
-        headers={"User-Agent": "OpenKE-AppStore-Builder/1.0"}
+        headers={"User-Agent": "Rosette-AppStore-Builder/1.0"}
     )
     with urllib.request.urlopen(req, timeout=30) as resp:
         h = hashlib.sha256()
@@ -121,7 +121,7 @@ def build_catalog(repo_root: str, compute_hashes: bool = False, check_urls: bool
 
     catalog = {
         "version": "1.0",
-        "name": "OpenKE App Store Catalog",
+        "name": "Rosette App Store Catalog",
         "updated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "categories": categories,
         "apps": apps
@@ -130,7 +130,7 @@ def build_catalog(repo_root: str, compute_hashes: bool = False, check_urls: bool
 
 
 def main():
-    parser = argparse.ArgumentParser(description="OpenKE App Store Catalog Builder")
+    parser = argparse.ArgumentParser(description="Rosette App Store Catalog Builder")
     parser.add_argument("--repo-root", default=os.path.abspath(os.path.join(os.path.dirname(__file__), "..")),
                         help="Root directory of AppStore repository")
     parser.add_argument("--output-dir", default=None, help="Directory to write output files")
@@ -142,7 +142,7 @@ def main():
     output_dir = args.output_dir or os.path.join(repo_root, "dist")
     os.makedirs(output_dir, exist_ok=True)
 
-    print(f"Building OpenKE App Store catalog from {repo_root}...")
+    print(f"Building Rosette App Store catalog from {repo_root}...")
     try:
         catalog = build_catalog(repo_root, compute_hashes=args.compute_hashes, check_urls=args.check_urls)
     except Exception as e:

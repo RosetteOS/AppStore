@@ -32,7 +32,7 @@ UPSTREAM = {
 
 
 def fetch(url: str) -> bytes:
-    req = urllib.request.Request(url, headers={"User-Agent": "OpenKE-AppStore-Icons/1.0"})
+    req = urllib.request.Request(url, headers={"User-Agent": "Rosette-AppStore-Icons/1.0"})
     with urllib.request.urlopen(req, timeout=30) as resp:
         return resp.read()
 

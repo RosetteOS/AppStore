@@ -3,25 +3,25 @@
   "name": "Spoolman",
   "category": "plugin",
   "icon": "spoolman",
-  "icon_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/icons/spoolman.png",
+  "icon_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/icons/spoolman.png",
   "description": "Filament spool management service with native Moonraker, Mainsail, and Fluidd integration. Tracks weights, usage, and material parameters.",
   "author": "Donkie",
   "version": "0.18.0",
   "type": "plugin",
   "is_builtin": false,
-  "download_url": "https://github.com/OpenKlipperEdition/AppStore/releases/download/packages-v1.0/spoolman-v0.18.0.zip",
+  "download_url": "https://github.com/RosetteOS/AppStore/releases/download/packages-v1.0/spoolman-v0.18.0.zip",
   "sha256": "58d1b5368aee6474ffa37d504b56d8a10ba2b0dd89cf0d711e92369fdc41c878",
-  "install_path": "/usr/data/openke/apps/spoolman",
+  "install_path": "/usr/data/rosetteos/apps/spoolman",
   "output_dirs": [
     "spoolman"
   ],
   "moonraker_config": "[spoolman]\nserver: http://127.0.0.1:7912\nsync_rate: 5",
   "service": {
-    "exec": "python3 /usr/data/openke/apps/spoolman/server.py",
+    "exec": "python3 /usr/data/rosetteos/apps/spoolman/server.py",
     "priority": 60,
     "oom_score_adj": -300
   },
-  "probe_path": "/usr/data/openke/apps/spoolman/server.py",
+  "probe_path": "/usr/data/rosetteos/apps/spoolman/server.py",
   "website": "https://github.com/Donkie/Spoolman",
   "source_url": "https://github.com/Donkie/Spoolman"
 }
