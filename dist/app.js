@@ -120,6 +120,7 @@ const FALLBACK_CATALOG = {
       "name": "OctoApp Companion",
       "category": "plugin",
       "icon": "octoapp",
+      "icon_url": "https://raw.githubusercontent.com/OpenKlipperEdition/AppStore/main/icons/octoapp.png",
       "description": "Companion service for OctoApp mobile app (iOS & Android) with real-time push notifications, print progress, webcam streaming, and remote control for Moonraker/Klipper.",
       "author": "Christian Würthner (crysxd)",
       "version": "3.2.4-openke.2",

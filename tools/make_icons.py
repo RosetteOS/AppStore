@@ -22,6 +22,7 @@ OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "icons"
 
 RAW = "https://raw.githubusercontent.com/"
 UPSTREAM = {
+    "octoapp": "https://play-lh.googleusercontent.com/zRKU0gfSHWQ8ltx7MOX7bidP9CazQ6eFr8OzjOGs1siBYmVzftd27eYzn2SElicz65cTVaRLKuyAcDZqfuBr=s0-br30",
     "spoolman": RAW + "Donkie/Spoolman/master/client/public/favicon.svg",
     "mainsail": RAW + "mainsail-crew/mainsail/develop/public/img/icons/icon-192.png",
     "fluidd": RAW + "fluidd-core/fluidd/develop/public/img/icons/android-chrome-192x192.png",
@@ -61,16 +62,6 @@ def badge(color, draw_fn) -> Image.Image:
 WHITE = (255, 255, 255, 255)
 
 
-def draw_octoapp(d, s):
-    # Octopus-like head with tentacles
-    d.ellipse((s * .2, s * .15, s * .8, s * .7), fill=WHITE)
-    for i in range(4):
-        x = s * (.24 + i * .17)
-        d.rounded_rectangle((x, s * .55, x + s * .11, s * .85), radius=s * .05, fill=WHITE)
-    for x in (.37, .6):
-        d.ellipse((s * x - s * .05, s * .35 - s * .05, s * x + s * .05, s * .35 + s * .05), fill=(0, 137, 123, 255))
-
-
 def draw_guppyscreen(d, s):
     # Guppy: body, tail, eye
     d.ellipse((s * .15, s * .3, s * .7, s * .7), fill=WHITE)
@@ -93,7 +84,6 @@ def draw_vnc(d, s):
 
 
 DRAWN = {
-    "octoapp": ((0, 137, 123, 255), draw_octoapp),
     "guppyscreen": ((94, 53, 177, 255), draw_guppyscreen),
     "timelapse": ((0, 121, 107, 255), draw_timelapse),
     "vnc": ((69, 90, 100, 255), draw_vnc),
