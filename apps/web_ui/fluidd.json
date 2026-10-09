@@ -9,7 +9,7 @@
   "version": "1.37.6",
   "type": "web_ui",
   "is_builtin": false,
-  "download_url": "https://github.com/RosetteOS/AppStore/releases/download/packages-v1.0/fluidd-v1.37.6.zip",
+  "download_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/packages/fluidd-v1.37.6.zip",
   "sha256": "9fe5bcd4a443f4cccd20cef222e70cc334a874070b21d116097a28405b0ed456",
   "install_path": "/usr/data/rosetteos/apps/fluidd",
   "config_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/configs/fluidd.cfg",

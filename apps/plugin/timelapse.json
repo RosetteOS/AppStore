@@ -9,7 +9,7 @@
   "version": "0.0.12",
   "type": "plugin",
   "is_builtin": false,
-  "download_url": "https://github.com/RosetteOS/AppStore/releases/download/packages-v1.0/timelapse-v0.0.12.zip",
+  "download_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/packages/timelapse-v0.0.12.zip",
   "sha256": "7b65e5e6aa4f1aaff426633d86389871c5722ac5c80ec05587887cae4d3a9374",
   "install_path": "/usr/data/rosetteos/apps/timelapse",
   "moonraker_component": "component/timelapse.py",

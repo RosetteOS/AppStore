@@ -9,7 +9,7 @@
   "version": "0.18.0",
   "type": "plugin",
   "is_builtin": false,
-  "download_url": "https://github.com/RosetteOS/AppStore/releases/download/packages-v1.0/spoolman-v0.18.0.zip",
+  "download_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/packages/spoolman-v0.18.0.zip",
   "sha256": "58d1b5368aee6474ffa37d504b56d8a10ba2b0dd89cf0d711e92369fdc41c878",
   "install_path": "/usr/data/rosetteos/apps/spoolman",
   "output_dirs": [

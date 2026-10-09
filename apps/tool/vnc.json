@@ -9,7 +9,7 @@
   "version": "1.0.0",
   "type": "tool",
   "is_builtin": false,
-  "download_url": "https://github.com/RosetteOS/AppStore/releases/download/packages-v1.0/vnc-v1.0.0.zip",
+  "download_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/packages/vnc-v1.0.0.zip",
   "sha256": "02f5dea75112477402935dfd97073a2090db655d5068f9cfac2c7da9db0f3deb",
   "executable": "rosetteos-vnc",
   "install_path": "/usr/data/rosetteos/apps/vnc",

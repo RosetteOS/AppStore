@@ -9,7 +9,7 @@
   "version": "1.0.2",
   "type": "touch_ui",
   "is_builtin": false,
-  "download_url": "https://github.com/RosetteOS/AppStore/releases/download/packages-v1.0/helixscreen-k1-v1.0.2.tar.gz",
+  "download_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/packages/helixscreen-k1-v1.0.2.tar.gz",
   "sha256": "d1b068f5218982ae6a7f6af839b54919683d9fe7f667c12a52bf34dd5c3e0564",
   "install_path": "/usr/data/rosetteos/apps/helixscreen",
   "executable": "bin/helix-screen",
