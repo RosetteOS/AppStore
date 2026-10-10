@@ -1,0 +1,30 @@
+{
+  "id": "tailscale",
+  "name": "Tailscale VPN",
+  "category": "tool",
+  "icon": "tailscale",
+  "icon_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/icons/tailscale.png",
+  "description": "Secure zero-config mesh VPN (WireGuard) enabling encrypted remote access to your 3D printer from any phone, tablet, or PC on your Tailnet without port forwarding.",
+  "author": "Tailscale Inc.",
+  "version": "1.104.1",
+  "type": "tool",
+  "is_builtin": false,
+  "download_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/packages/tailscale-v1.104.1.zip",
+  "sha256": "13f7435cb9f3347e3b28f1e29bc339a8fef2d8c96f81587e50e4c873b7e69ddc",
+  "executable": "tailscale",
+  "install_path": "/usr/data/rosetteos/apps/tailscale",
+  "service": {
+    "exec": "/usr/data/rosetteos/apps/tailscale/tailscaled-runner.sh",
+    "priority": 60,
+    "oom_score_adj": -200
+  },
+  "config_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/configs/tailscale.cfg",
+  "config_target": "macros/tailscale.cfg",
+  "klipper_include": true,
+  "output_dirs": [
+    "config/macros"
+  ],
+  "probe_path": "/usr/data/rosetteos/apps/tailscale/tailscale",
+  "website": "https://tailscale.com",
+  "source_url": "https://github.com/tailscale/tailscale"
+}

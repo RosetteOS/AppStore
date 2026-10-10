@@ -62,6 +62,7 @@ class TestAppStoreCatalog(unittest.TestCase):
         self.assertIn("spoolman", app_ids)
         self.assertIn("octoapp", app_ids)
         self.assertIn("klipper-backup", app_ids)
+        self.assertIn("tailscale", app_ids)
 
     def test_schema_validator_catches_invalid_app(self):
         invalid_app = {
