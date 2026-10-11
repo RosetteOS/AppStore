@@ -23,5 +23,15 @@
   },
   "probe_path": "/usr/data/rosetteos/apps/spoolman/server.py",
   "website": "https://github.com/Donkie/Spoolman",
-  "source_url": "https://github.com/Donkie/Spoolman"
+  "source_url": "https://github.com/Donkie/Spoolman",
+  "changelog": [
+    {
+      "version": "0.18.0",
+      "date": "2026-09-25",
+      "changes": [
+        "Initial Spoolman filament management service (port 7912) for RosetteOS",
+        "Automatic [spoolman] section injection into moonraker.conf"
+      ]
+    }
+  ]
 }

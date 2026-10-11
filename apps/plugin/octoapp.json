@@ -26,5 +26,22 @@
   },
   "probe_path": "/usr/data/rosetteos/apps/octoapp/server.py",
   "website": "https://octoapp.eu",
-  "source_url": "https://github.com/crysxd/OctoApp-Plugin"
+  "source_url": "https://github.com/crysxd/OctoApp-Plugin",
+  "changelog": [
+    {
+      "version": "3.2.4-rosetteos.2",
+      "date": "2026-10-08",
+      "changes": [
+        "Clean up octoapp.conf and octoapp-moonraker.cfg on app removal",
+        "Optimize Python runtime memory footprint for Ingenic X2000"
+      ]
+    },
+    {
+      "version": "3.2.4",
+      "date": "2026-09-25",
+      "changes": [
+        "Initial OctoApp Companion package for RosetteOS"
+      ]
+    }
+  ]
 }

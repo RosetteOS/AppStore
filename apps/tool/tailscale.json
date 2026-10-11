@@ -26,5 +26,17 @@
   ],
   "probe_path": "/usr/data/rosetteos/apps/tailscale/tailscale",
   "website": "https://tailscale.com",
-  "source_url": "https://github.com/tailscale/tailscale"
+  "source_url": "https://github.com/tailscale/tailscale",
+  "changelog": [
+    {
+      "version": "1.104.1",
+      "date": "2026-10-11",
+      "changes": [
+        "Use userspace-networking mode when kernel CONFIG_TUN is absent so tailscaled starts cleanly without kernel TUN or iptables",
+        "Configure writable cache and state directories under /usr/data/rosetteos/tailscale",
+        "Remove ASCII QR code output from TAILSCALE_UP macro in favor of a clean clickable authentication URL",
+        "Initial MIPS32EL static build of Tailscale v1.104.1 for RosetteOS"
+      ]
+    }
+  ]
 }

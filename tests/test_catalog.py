@@ -80,6 +80,31 @@ class TestAppStoreCatalog(unittest.TestCase):
         self.assertTrue(os.path.isfile(os.path.join(site_dir, "style.css")), "site/style.css must exist")
         self.assertTrue(os.path.isfile(os.path.join(site_dir, "app.js")), "site/app.js must exist")
 
+    def test_app_changelogs(self):
+        catalog = build_catalog(self.repo_root, compute_hashes=False)
+        for app in catalog["apps"]:
+            self.assertIn("changelog", app, f"App '{app['id']}' should include a changelog")
+            self.assertIsInstance(app["changelog"], list)
+            self.assertGreater(len(app["changelog"]), 0)
+            latest = app["changelog"][0]
+            self.assertIn("version", latest)
+            self.assertIn("changes", latest)
+
+        bad_changelog_app = {
+            "id": "bad_cl",
+            "name": "Bad Changelog",
+            "category": "tool",
+            "description": "Test",
+            "author": "Test",
+            "version": "1.0.0",
+            "type": "tool",
+            "download_url": "https://example.com/a.zip",
+            "install_path": "/usr/data/rosetteos/apps/bad_cl",
+            "changelog": [{"version": "", "changes": []}]
+        }
+        errs = validate_app_schema(bad_changelog_app, "bad_cl.json")
+        self.assertGreater(len(errs), 0)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

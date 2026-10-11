@@ -20,5 +20,15 @@
   },
   "probe_path": "/usr/data/rosetteos/apps/vnc/rosetteos-vnc",
   "website": "https://github.com/RosetteOS/AppStore",
-  "source_url": "https://github.com/RosetteOS/AppStore/tree/main/tools/rosetteos-vnc"
+  "source_url": "https://github.com/RosetteOS/AppStore/tree/main/tools/rosetteos-vnc",
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-09",
+      "changes": [
+        "Initial release of Remote VNC Display server (port 5900) and HTML5 web client (port 5800)",
+        "Support hardware touchscreen injection and real-time framebuffer streaming on Ingenic X2000"
+      ]
+    }
+  ]
 }

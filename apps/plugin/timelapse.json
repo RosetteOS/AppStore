@@ -22,5 +22,15 @@
   "moonraker_config": "[timelapse]\noutput_path: /opt/printer_data/timelapse/\nframe_path: /tmp/timelapse/printer_data\nffmpeg_binary_path: /usr/bin/ffmpeg",
   "probe_path": "/usr/data/rosetteos/apps/timelapse/component/timelapse.py",
   "website": "https://github.com/mainsail-crew/moonraker-timelapse",
-  "source_url": "https://github.com/mainsail-crew/moonraker-timelapse"
+  "source_url": "https://github.com/mainsail-crew/moonraker-timelapse",
+  "changelog": [
+    {
+      "version": "0.0.12",
+      "date": "2026-09-20",
+      "changes": [
+        "Initial Moonraker Timelapse plugin package with hardware-accelerated FFmpeg configuration",
+        "Automatic macros/timelapse.cfg and [timelapse] moonraker.conf integration"
+      ]
+    }
+  ]
 }

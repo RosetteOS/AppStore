@@ -13,5 +13,15 @@
   "config_target": "macros/mainsail.cfg",
   "probe_path": "/usr/share/mainsail/index.html",
   "website": "https://mainsail.xyz",
-  "source_url": "https://github.com/mainsail-crew/mainsail"
+  "source_url": "https://github.com/mainsail-crew/mainsail",
+  "changelog": [
+    {
+      "version": "2.12.0",
+      "date": "2026-09-01",
+      "changes": [
+        "Built-in Mainsail web interface included in RosetteOS firmware",
+        "Pre-configured with camera streaming, macro controls, and G-code viewer"
+      ]
+    }
+  ]
 }

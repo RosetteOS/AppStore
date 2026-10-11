@@ -42,6 +42,21 @@ def validate_app_schema(app: dict, filename: str) -> list:
         if not app.get("download_url") and not app.get("install_path"):
             errors.append(f"External app '{app.get('id')}' must define 'download_url' and 'install_path'")
 
+    if "changelog" in app and app["changelog"] is not None:
+        cl = app["changelog"]
+        if isinstance(cl, list):
+            for idx, entry in enumerate(cl):
+                if isinstance(entry, dict):
+                    if not entry.get("version") or not isinstance(entry.get("version"), str):
+                        errors.append(f"Changelog entry #{idx} in {filename} missing string 'version'")
+                    changes = entry.get("changes")
+                    if not isinstance(changes, (list, str)) or not changes:
+                        errors.append(f"Changelog entry #{idx} in {filename} must have non-empty 'changes' (list or string)")
+                elif not isinstance(entry, str):
+                    errors.append(f"Changelog entry #{idx} in {filename} must be an object or string")
+        elif not isinstance(cl, str):
+            errors.append(f"'changelog' in {filename} must be a list of version entries or a string")
+
     return errors
 
 

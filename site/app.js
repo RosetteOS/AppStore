@@ -189,6 +189,15 @@ function getCategoryName(cat) {
   return map[cat] || cat;
 }
 
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 let catalogApps = [];
 let currentCategory = "all";
 let searchQuery = "";
@@ -410,6 +419,39 @@ function openModal(appId) {
   document.getElementById("modal-config-target").textContent = app.config_target || "-";
   document.getElementById("modal-component").textContent = app.moonraker_component || "-";
   document.getElementById("modal-sha").textContent = app.sha256 ? `${app.sha256.substring(0, 16)}...` : (app.is_builtin ? "(Base firmware)" : "-");
+
+  const changelogSection = document.getElementById("modal-changelog-section");
+  const changelogContainer = document.getElementById("modal-changelog");
+  if (changelogSection && changelogContainer) {
+    const cl = app.changelog;
+    if (Array.isArray(cl) && cl.length > 0) {
+      changelogContainer.innerHTML = cl.map(entry => {
+        if (typeof entry === "string") {
+          return `<div class="changelog-entry"><ul class="changelog-items"><li>${escapeHtml(entry)}</li></ul></div>`;
+        }
+        const ver = escapeHtml(entry.version || app.version || "");
+        const date = entry.date ? `<span class="changelog-date">${escapeHtml(entry.date)}</span>` : "";
+        const items = Array.isArray(entry.changes) ? entry.changes : (entry.changes ? [entry.changes] : []);
+        const itemsHtml = items.map(item => `<li>${escapeHtml(String(item))}</li>`).join("");
+        return `
+          <div class="changelog-entry">
+            <div class="changelog-header">
+              <span class="badge badge-version">v${ver}</span>
+              ${date}
+            </div>
+            <ul class="changelog-items">${itemsHtml}</ul>
+          </div>
+        `;
+      }).join("");
+      changelogSection.style.display = "block";
+    } else if (typeof cl === "string" && cl.trim()) {
+      changelogContainer.innerHTML = `<div class="changelog-entry"><p>${escapeHtml(cl)}</p></div>`;
+      changelogSection.style.display = "block";
+    } else {
+      changelogContainer.innerHTML = "";
+      changelogSection.style.display = "none";
+    }
+  }
 
   const linksContainer = document.getElementById("modal-links");
   let linksHtml = "";

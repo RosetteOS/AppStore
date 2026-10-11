@@ -15,5 +15,15 @@
   "executable": "bin/helix-screen",
   "probe_path": "/usr/data/rosetteos/apps/helixscreen/bin/helix-screen",
   "website": "https://helixscreen.org",
-  "source_url": "https://github.com/prestonbrown/helixscreen"
+  "source_url": "https://github.com/prestonbrown/helixscreen",
+  "changelog": [
+    {
+      "version": "1.0.2",
+      "date": "2026-09-20",
+      "changes": [
+        "Initial MIPS32EL build of HelixScreen v1.0.2 for RosetteOS",
+        "Support dynamic Touch UI switching with thermal and active print safety interlocks"
+      ]
+    }
+  ]
 }

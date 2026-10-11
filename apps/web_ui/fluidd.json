@@ -21,5 +21,22 @@
   },
   "probe_path": "/usr/data/rosetteos/apps/fluidd/index.html",
   "website": "https://fluidd.xyz",
-  "source_url": "https://github.com/fluidd-core/fluidd"
+  "source_url": "https://github.com/fluidd-core/fluidd",
+  "changelog": [
+    {
+      "version": "1.37.6",
+      "date": "2026-10-08",
+      "changes": [
+        "Update Fluidd web interface bundle to upstream v1.37.6",
+        "Add automatic client macro management (PAUSE, RESUME, CANCEL_PRINT) when switching active Web UI"
+      ]
+    },
+    {
+      "version": "1.30.0",
+      "date": "2026-09-15",
+      "changes": [
+        "Initial Fluidd Web UI package for RosetteOS"
+      ]
+    }
+  ]
 }
