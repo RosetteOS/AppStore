@@ -99,11 +99,20 @@ def draw_telegram_bot(d, s):
     d.line((s * .84, s * .22, s * .36, s * .57), fill=(34, 158, 217, 255), width=int(s * .045))
 
 
+def draw_cloudflared(d, s):
+    # Cloud silhouette on Cloudflare orange badge
+    d.ellipse((s * .32, s * .28, s * .68, s * .64), fill=WHITE)
+    d.ellipse((s * .18, s * .40, s * .46, s * .68), fill=WHITE)
+    d.ellipse((s * .54, s * .38, s * .82, s * .68), fill=WHITE)
+    d.rectangle((s * .28, s * .48, s * .72, s * .68), fill=WHITE)
+
+
 DRAWN = {
     "guppyscreen": ((94, 53, 177, 255), draw_guppyscreen),
     "timelapse": ((0, 121, 107, 255), draw_timelapse),
     "vnc": ((69, 90, 100, 255), draw_vnc),
     "telegram-bot": ((34, 158, 217, 255), draw_telegram_bot),
+    "cloudflared": ((244, 129, 32, 255), draw_cloudflared),
 }
 
 

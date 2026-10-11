@@ -1,0 +1,44 @@
+{
+  "id": "cloudflared",
+  "name": "Cloudflare Tunnel",
+  "category": "tool",
+  "icon": "cloudflared",
+  "icon_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/icons/cloudflared.png",
+  "description": "Zero-port-forwarding HTTPS tunnel (Quick Tunnel *.trycloudflare.com or Named Zero Trust Tunnel) for remote access to Mainsail/Fluidd without requiring a kernel TUN device.",
+  "author": "Cloudflare, Inc.",
+  "version": "2026.9.3",
+  "type": "tool",
+  "is_builtin": false,
+  "download_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/packages/cloudflared-v2026.9.3.zip",
+  "sha256": "ba468dfecb71317a938386fa0a29cfc58803974fd9c4004da84ed84f20170d75",
+  "executable": "cloudflared",
+  "install_path": "/usr/data/rosetteos/apps/cloudflared",
+  "service": {
+    "exec": "/usr/data/rosetteos/apps/cloudflared/cloudflared-runner.sh",
+    "priority": 60,
+    "oom_score_adj": -200
+  },
+  "config_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/configs/cloudflared.cfg",
+  "config_target": "macros/cloudflared.cfg",
+  "klipper_include": true,
+  "cleanup_config_files": [
+    "cloudflared.env"
+  ],
+  "output_dirs": [
+    "config/macros"
+  ],
+  "probe_path": "/usr/data/rosetteos/apps/cloudflared/cloudflared",
+  "website": "https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/",
+  "source_url": "https://github.com/cloudflare/cloudflared",
+  "changelog": [
+    {
+      "version": "2026.9.3",
+      "date": "2026-10-11",
+      "changes": [
+        "Package static MIPS32el build of cloudflared v2026.9.3 for RosetteOS",
+        "Default to instant zero-config Quick Tunnel (*.trycloudflare.com -> http://127.0.0.1:80) or persistent Zero Trust tunnel token via cloudflared.env",
+        "Add CLOUDFLARED_STATUS, CLOUDFLARED_QUICK_TUNNEL, CLOUDFLARED_SET_TOKEN, and CLOUDFLARED_RESTART Klipper macros"
+      ]
+    }
+  ]
+}
