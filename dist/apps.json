@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "name": "Rosette App Store Catalog",
-  "updated_at": "2026-10-10T23:52:57Z",
+  "updated_at": "2026-10-11T00:06:26Z",
   "categories": [
     {
       "id": "web_ui",
@@ -150,7 +150,7 @@
       "type": "tool",
       "is_builtin": false,
       "download_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/packages/klipper-backup-v1.3.6.zip",
-      "sha256": "47af41427467d621181bcccb772f54c7c7a945673918e470d4dfef96815e0502",
+      "sha256": "dc6a5f1f745bb913f081fa3b13abe0038af9b31a1b5d81d6ef4a57e5896a9bd0",
       "executable": "script.sh",
       "install_path": "/usr/data/rosetteos/apps/klipper-backup",
       "service": {
@@ -160,6 +160,13 @@
       },
       "config_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/configs/klipper-backup.cfg",
       "config_target": "macros/klipper-backup.cfg",
+      "config_targets": [
+        "macros/klipper-backup.cfg",
+        "klipper-backup.env"
+      ],
+      "cleanup_config_files": [
+        "klipper-backup.env"
+      ],
       "klipper_include": true,
       "output_dirs": [
         "config/macros"
