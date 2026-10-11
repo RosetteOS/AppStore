@@ -10,7 +10,7 @@
   "type": "tool",
   "is_builtin": false,
   "download_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/packages/tailscale-v1.104.1.zip",
-  "sha256": "13f7435cb9f3347e3b28f1e29bc339a8fef2d8c96f81587e50e4c873b7e69ddc",
+  "sha256": "31f26ead6458478760d62c0ca1cd6010d5686217ec232b8e4e59b096710cafff",
   "executable": "tailscale",
   "install_path": "/usr/data/rosetteos/apps/tailscale",
   "service": {
