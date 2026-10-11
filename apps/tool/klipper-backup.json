@@ -20,6 +20,10 @@
   },
   "config_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/configs/klipper-backup.cfg",
   "config_target": "macros/klipper-backup.cfg",
+  "config_urls": {
+    "macros/klipper-backup.cfg": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/configs/klipper-backup.cfg",
+    "klipper-backup.env": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/configs/klipper-backup.env"
+  },
   "config_targets": [
     "macros/klipper-backup.cfg",
     "klipper-backup.env"

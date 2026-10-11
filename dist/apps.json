@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "name": "Rosette App Store Catalog",
-  "updated_at": "2026-10-11T00:06:26Z",
+  "updated_at": "2026-10-11T00:08:55Z",
   "categories": [
     {
       "id": "web_ui",
@@ -160,6 +160,10 @@
       },
       "config_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/configs/klipper-backup.cfg",
       "config_target": "macros/klipper-backup.cfg",
+      "config_urls": {
+        "macros/klipper-backup.cfg": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/configs/klipper-backup.cfg",
+        "klipper-backup.env": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/configs/klipper-backup.env"
+      },
       "config_targets": [
         "macros/klipper-backup.cfg",
         "klipper-backup.env"
