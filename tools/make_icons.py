@@ -83,10 +83,27 @@ def draw_vnc(d, s):
     d.rounded_rectangle((s * .3, s * .78, s * .7, s * .85), radius=s * .03, fill=WHITE)
 
 
+def draw_telegram_bot(d, s):
+    # Paper airplane silhouette on Telegram blue badge
+    d.polygon(
+        [
+            (s * .14, s * .50),
+            (s * .84, s * .22),
+            (s * .70, s * .80),
+            (s * .47, s * .63),
+            (s * .36, s * .74),
+            (s * .36, s * .57),
+        ],
+        fill=WHITE,
+    )
+    d.line((s * .84, s * .22, s * .36, s * .57), fill=(34, 158, 217, 255), width=int(s * .045))
+
+
 DRAWN = {
     "guppyscreen": ((94, 53, 177, 255), draw_guppyscreen),
     "timelapse": ((0, 121, 107, 255), draw_timelapse),
     "vnc": ((69, 90, 100, 255), draw_vnc),
+    "telegram-bot": ((34, 158, 217, 255), draw_telegram_bot),
 }
 
 

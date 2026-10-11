@@ -1,0 +1,39 @@
+{
+  "id": "telegram-bot",
+  "name": "Moonraker Telegram Bot",
+  "category": "plugin",
+  "icon": "telegram-bot",
+  "icon_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/icons/telegram-bot.png",
+  "description": "Control and monitor your Klipper 3D printer via Telegram with real-time print progress notifications, webcam snapshots/videos, macro buttons, and timelapse uploads.",
+  "author": "Nikolay Lefanov (nlef)",
+  "version": "2.1.0",
+  "type": "plugin",
+  "is_builtin": false,
+  "download_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/packages/telegram-bot-v2.1.0.zip",
+  "sha256": "01005ab1acbea52434de841150a9b6555cbf9dda7e4446f6d31445e70e42bf72",
+  "install_path": "/usr/data/rosetteos/apps/telegram-bot",
+  "config_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/configs/telegram.conf",
+  "config_target": "telegram.conf",
+  "output_dirs": [
+    "timelapse/telegram"
+  ],
+  "klipper_include": false,
+  "service": {
+    "exec": "python3 /usr/data/rosetteos/apps/telegram-bot/bot/main.py -c /opt/printer_data/config/telegram.conf -l /opt/printer_data/logs/telegram.log",
+    "priority": 60,
+    "oom_score_adj": -500
+  },
+  "probe_path": "/usr/data/rosetteos/apps/telegram-bot/bot/main.py",
+  "website": "https://github.com/nlef/moonraker-telegram-bot/wiki",
+  "source_url": "https://github.com/nlef/moonraker-telegram-bot",
+  "changelog": [
+    {
+      "version": "2.1.0",
+      "date": "2026-10-11",
+      "changes": [
+        "Package Moonraker-Telegram-Bot v2.1.0 with bundled Python dependencies and MJPEG camera presets",
+        "Auto-deploy telegram.conf to printer_data/config with live reload when bot_token and chat_id are saved"
+      ]
+    }
+  ]
+}
