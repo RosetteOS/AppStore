@@ -55,6 +55,12 @@ COMMENT_REPLACEMENTS = {
 
 
 def main() -> None:
+    if not SOURCE.exists():
+        if DESTINATION.exists():
+            print(f"Upstream source {SOURCE} not found; destination {DESTINATION} already exists.")
+            return
+        raise FileNotFoundError(f"Neither {SOURCE} nor {DESTINATION} exists")
+
     with ZipFile(SOURCE, "r") as source_zip:
         launcher = source_zip.read("server.py").decode("utf-8")
         if "OpenKE" not in launcher or "/usr/data/openke/" not in launcher:

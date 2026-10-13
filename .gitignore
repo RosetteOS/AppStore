@@ -7,3 +7,7 @@ build/
 *.o
 tools/rosetteos-vnc/rosetteos-vnc
 
+# Generated distribution website artifacts (compiled by build_catalog.py for Pages deployment)
+dist/*
+!dist/apps.json
+!dist/catalog.json
