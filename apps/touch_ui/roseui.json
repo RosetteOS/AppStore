@@ -1,23 +1,23 @@
 {
-  "id": "guppyscreen",
-  "name": "GuppyScreen Touch UI",
+  "id": "roseui",
+  "name": "RoseUI Touch UI",
   "category": "touch_ui",
-  "icon": "guppyscreen",
-  "icon_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/icons/guppyscreen.png",
+  "icon": "roseui",
+  "icon_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/icons/roseui.png",
   "description": "Default ultra-fast native LVGL-based touchscreen interface optimized for Ingenic X2000 MIPS.",
-  "author": "Rosette & GuppyScreen Team",
+  "author": "RosetteOS Team",
   "version": "1.0.0",
   "type": "touch_ui",
   "is_builtin": true,
-  "builtin_path": "/opt/guppyscreen/guppyscreen",
-  "probe_path": "/opt/guppyscreen/guppyscreen",
+  "builtin_path": "/opt/roseui/roseui",
+  "probe_path": "/opt/roseui/roseui",
   "source_url": "https://github.com/RosetteOS/GuppyScreen",
   "changelog": [
     {
       "version": "1.0.0",
-      "date": "2026-10-08",
+      "date": "2026-10-18",
       "changes": [
-        "Built-in native LVGL touchscreen UI optimized for Ingenic X2000 MIPS",
+        "Rebranded native LVGL touchscreen UI (RoseUI) optimized for Ingenic X2000 MIPS",
         "Integrated App Store panel, multi-printer profile switcher, and live resource monitoring"
       ]
     }

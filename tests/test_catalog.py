@@ -55,7 +55,7 @@ class TestAppStoreCatalog(unittest.TestCase):
         # Verify key baseline apps exist
         self.assertIn("mainsail", app_ids)
         self.assertIn("fluidd", app_ids)
-        self.assertIn("guppyscreen", app_ids)
+        self.assertIn("roseui", app_ids)
         self.assertIn("helixscreen", app_ids)
         self.assertIn("timelapse", app_ids)
         self.assertIn("mobileraker", app_ids)
