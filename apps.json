@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "name": "Rosette App Store Catalog",
-  "updated_at": "2026-10-18T14:54:24Z",
+  "updated_at": "2026-10-19T02:17:31Z",
   "categories": [
     {
       "id": "web_ui",
@@ -399,7 +399,7 @@
     },
     {
       "id": "helixscreen",
-      "name": "HelixScreen Touch UI",
+      "name": "HelixScreen",
       "category": "touch_ui",
       "icon": "helixscreen",
       "icon_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/icons/helixscreen.png",
@@ -428,7 +428,7 @@
     },
     {
       "id": "roseui",
-      "name": "RoseUI Touch UI",
+      "name": "RoseUI",
       "category": "touch_ui",
       "icon": "roseui",
       "icon_url": "https://raw.githubusercontent.com/RosetteOS/AppStore/main/icons/roseui.png",
